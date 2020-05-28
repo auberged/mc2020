@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">MC2020-App</string>
+    <string name="filterCriteriaSettings">Filterkriterien</string>
+
+    <!-- Label for the type (tv/series) preference  -->
+    <string name="pref_type_label">Typ</string>
+    <!-- Label for the type series preference  -->
+    <string name="pref_type_label_series">Serien</string>
+    <!-- Label for the type movies preference  -->
+    <string name="pref_type_label_movies">Filme</string>
+    <!-- Key for the type (tv/series) preference  -->
+    <string name="pref_type_key" translatable="false">type</string>
+    <!-- Value in SharedPreferences for the type series preference  -->
+    <string name="pref_type_series_value" translatable="false">series</string>
+    <!-- Value in SharedPreferences for the type series preference  -->
+    <string name="pref_type_movies_value" translatable="false">movie</string>
+
+    <!-- Label for the genre preference  -->
+    <string name="pref_genre_label">Genre</string>
+    <!-- Label for the genre sitcom preference  -->
+    <string name="pref_genre_label_sitcom">Sitcom</string>
+    <!-- Label for the genre horror preference  -->
+    <string name="pref_genre_label_horror">Horror</string>
+    <!-- Label for the genre sports documentary preference  -->
+    <string name="pref_genre_label_sports_documentary">Sports-Dokumentation</string>
+    <!-- Key for the genre preference  -->
+    <string name="pref_genre_key" translatable="false">genre</string>
+    <!-- Value in SharedPreferences for the genre sitcom preference  -->
+    <string name="pref_genre_sitcom_value" translatable="false">3903</string>
+    <!-- Value in SharedPreferences for the genre horror preference  -->
+    <string name="pref_genre_horror_value" translatable="false">8711</string>
+    <!-- Value in SharedPreferences for the genre sports documentary preference  -->
+    <string name="pref_genre_sports_documentary_value" translatable="false">180</string>
+    <!-- Value in SharedPreferences for the dialog in genre preference  -->
+    <string name="selectPreferredGenre">Gewünschte Genre auswählen</string>
+    <string name="genreCountSelectedMessage">Genre ausgewählt</string>
 </resources>

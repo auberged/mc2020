@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pref_type_option_labels">
+        <item>@string/pref_type_label_movies</item>
+        <item>@string/pref_type_label_series</item>
+    </array>
+
+    <array name="pref_type_option_values">
+        <item>@string/pref_type_movies_value</item>
+        <item>@string/pref_type_series_value</item>
+    </array>
+
+    <array name="pref_genre_option_labels">
+        <item>@string/pref_genre_label_sitcom</item>
+        <item>@string/pref_genre_label_horror</item>
+        <item>@string/pref_genre_label_sports_documentary</item>
+    </array>
+
+    <array name="pref_genre_option_values">
+        <item>@string/pref_genre_sitcom_value</item>
+        <item>@string/pref_genre_horror_value</item>
+        <item>@string/pref_genre_sports_documentary_value</item>
+    </array>
+
+</resources>
