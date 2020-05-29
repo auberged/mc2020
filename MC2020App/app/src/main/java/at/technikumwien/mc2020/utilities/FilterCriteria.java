@@ -4,7 +4,4 @@ import java.util.List;
 import java.util.logging.Filter;
 
 public class FilterCriteria {
-
-
-
 }
