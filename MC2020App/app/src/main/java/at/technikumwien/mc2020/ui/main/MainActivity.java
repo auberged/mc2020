@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imageButton = findViewById(R.id.id_preference_button);
+        /*imageButton = findViewById(R.id.id_preference_button);
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openSettingsActivity();
             }
-        });
+        });*/
     }
 
     private void openSettingsActivity(){
