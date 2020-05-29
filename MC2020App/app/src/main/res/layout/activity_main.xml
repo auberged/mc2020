@@ -6,14 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <!-- Just some random image pic for testing -->
-    <ImageButton android:id="@+id/id_preference_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:src="@drawable/abc_vector_test"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

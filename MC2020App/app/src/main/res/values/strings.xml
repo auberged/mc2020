@@ -34,4 +34,19 @@
     <!-- Value in SharedPreferences for the dialog in genre preference  -->
     <string name="selectPreferredGenre">Gewünschte Genre auswählen</string>
     <string name="genreCountSelectedMessage">Genre ausgewählt</string>
+
+    <!-- Key for numberPicker dialog in SharedPreferences for the release year preference  -->
+    <string name="pref_release_year_key" translatable="false">release_year</string>
+    <!-- Label for the release year preference  -->
+    <string name="pref_release_year_label" >Erscheinungsjahr</string>
+    <!-- Default value for the release year preference  -->
+    <string name="pref_release_year_default" translatable="false" >2020</string>
+
+    <!-- Label for ok button in release year dialog  -->
+    <string name="ok_Button">Ok</string>
+    <!-- Label for cancel button in release year dialog  -->
+    <string name="cancel_Button">Abbrechen</string>
+    <!-- Label for release year button in release year dialog  -->
+    <string name="dialog_title">Erscheinungsjahr auswählen:</string>
+
 </resources>
