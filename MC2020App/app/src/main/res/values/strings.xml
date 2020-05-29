@@ -34,4 +34,5 @@
     <!-- Value in SharedPreferences for the dialog in genre preference  -->
     <string name="selectPreferredGenre">Gewünschte Genre auswählen</string>
     <string name="genreCountSelectedMessage">Genre ausgewählt</string>
+    <string name="explore">Entdecken</string>
 </resources>
