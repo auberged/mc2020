@@ -23,7 +23,7 @@ public class ExampleUnitTest {
 
 
     @Test
-    public void addition_isCorrect() {
+    public void addition_isCorrect() throws JSONException {
 
         // image: https://image.tmdb.org/t/p/w600_and_h900_bestv2/dCdTAOxkcNnsFVKHQnxbklvGRzF.jpg
 
@@ -39,7 +39,14 @@ public class ExampleUnitTest {
             return;
         }
 
-        //parseDataToMovies(apiResult);
+        List<MovieModel> movies = parseDataToMovies(apiResult);
+        if (movies == null) {
+            // TODO show error
+        }
+
+        for (MovieModel movie : movies ) {
+            System.out.println(movie.id + ": " + movie.title + " - " + movie.poster_url);
+        }
 
 
 
@@ -54,27 +61,31 @@ public class ExampleUnitTest {
         JSONObject jsonObject = new JSONObject(apiResult);
 
         // Parse to array of cards
-        JSONArray cardsArray = jsonObject.getJSONArray("results");
+        JSONArray moviesArray = jsonObject.getJSONArray("results");
 
         // If page is empty, send new request to first page
-        if(cardsArray.length() == 0){
-            // TODO add correct end condition (e.g. page = page in response)
+        if(moviesArray.length() == 0){
             return null;
         }
 
         // Make a new empty list
-        List<MovieModel> movies = new LinkedList<MovieModel>();
+        List<MovieModel> movies = new LinkedList<>();
 
         // Generate each card and add it to the list
-        for (int i = 0; i < cardsArray.length(); i++) {
-            JSONObject jsonCard = cardsArray.getJSONObject(i);
-            String name = jsonCard.getString("name");
+        for (int i = 0; i < moviesArray.length(); i++) {
+            JSONObject jsonCard = moviesArray.getJSONObject(i);
+            int id = jsonCard.getInt("id");
+            String title = jsonCard.getString("title");
+            String description = jsonCard.getString("overview");
+            double vote_average = jsonCard.getDouble("vote_average");
+            String poster_url = jsonCard.getString("poster_path");
+            String releaseDate = jsonCard.getString("release_date");
 
-            MovieModel movie = new MovieModel(name, type, rarity);
+            MovieModel movie = new MovieModel(id, title, description, vote_average, poster_url, releaseDate);
 
-            JSONArray colors = jsonCard.getJSONArray("colors");
-            for (int j = 0; j < colors.length(); j++) {
-                movie.addColor(colors.getString(j));
+            JSONArray genres = jsonCard.getJSONArray("genre_ids");
+            for (int j = 0; j < genres.length(); j++) {
+                movie.addGenre(genres.getString(j));
             }
 
             movies.add(movie);
