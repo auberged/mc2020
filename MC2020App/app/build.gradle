@@ -46,8 +46,5 @@ dependencies {
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
 
-    implementation 'com.squareup.okhttp3:okhttp:3.14.6'
     implementation 'org.apache.httpcomponents:httpclient:4.5.12'
-
-
 }
