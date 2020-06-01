@@ -4,6 +4,11 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+
     defaultConfig {
         applicationId "at.technikumwien.mc2020"
         minSdkVersion 16
