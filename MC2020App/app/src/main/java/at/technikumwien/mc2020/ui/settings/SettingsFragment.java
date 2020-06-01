@@ -14,8 +14,10 @@ import androidx.preference.PreferenceScreen;
 import java.util.Set;
 
 import at.technikumwien.mc2020.R;
-import at.technikumwien.mc2020.ui.settings.custom.preference.NumberPickerPreference;
-import at.technikumwien.mc2020.ui.settings.custom.preference.NumberPickerPreferenceDialogFragment;
+import at.technikumwien.mc2020.ui.settings.custom.preference.number.picker.NumberPickerPreference;
+import at.technikumwien.mc2020.ui.settings.custom.preference.number.picker.NumberPickerPreferenceDialogFragment;
+import at.technikumwien.mc2020.ui.settings.custom.preference.seekbar.RangeSeekBarPreference;
+import at.technikumwien.mc2020.ui.settings.custom.preference.seekbar.RangeSeekBarPreferenceDialogFragment;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -91,6 +93,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         DialogFragment dialogFragment = null;
         if(preference instanceof NumberPickerPreference){
             dialogFragment = NumberPickerPreferenceDialogFragment.newInstance(preference.getKey());
+        } else if(preference instanceof RangeSeekBarPreference){
+            dialogFragment = RangeSeekBarPreferenceDialogFragment.newInstance(preference.getKey());
         }
 
         if(dialogFragment != null){

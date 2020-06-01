@@ -1,6 +1,5 @@
-package at.technikumwien.mc2020.ui.settings.custom.preference;
+package at.technikumwien.mc2020.ui.settings.custom.preference.number.picker;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.NumberPicker;

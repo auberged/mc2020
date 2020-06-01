@@ -1,14 +1,10 @@
-package at.technikumwien.mc2020.ui.settings.custom.preference;
+package at.technikumwien.mc2020.ui.settings.custom.preference.number.picker;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.NumberPicker;
-
 import androidx.annotation.Nullable;
 import androidx.preference.DialogPreference;
-import androidx.preference.PreferenceDialogFragmentCompat;
 
 import at.technikumwien.mc2020.R;
 
@@ -33,7 +29,7 @@ public class NumberPickerPreference extends DialogPreference {
 
         setKey(context.getResources().getString(R.string.pref_release_year_key));
         setTitle(context.getResources().getString(R.string.pref_release_year_label));
-        setDialogTitle(context.getResources().getString(R.string.dialog_title));
+        setDialogTitle(context.getResources().getString(R.string.release_year_dialog_title));
         setPositiveButtonText(context.getResources().getString(R.string.ok_Button));
         setNegativeButtonText(context.getResources().getString(R.string.cancel_Button));
     }

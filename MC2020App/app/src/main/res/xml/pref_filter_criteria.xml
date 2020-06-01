@@ -17,10 +17,15 @@
         android:title="@string/pref_genre_label"
         />
 
-    <at.technikumwien.mc2020.ui.settings.custom.preference.NumberPickerPreference
+    <at.technikumwien.mc2020.ui.settings.custom.preference.number.picker.NumberPickerPreference
         android:key="@string/pref_release_year_key"
         android:title="@string/pref_release_year_label"
         android:defaultValue="@string/pref_release_year_default"
+        />
+
+    <at.technikumwien.mc2020.ui.settings.custom.preference.seekbar.RangeSeekBarPreference
+        android:key="@string/pref_imdb_rating_key"
+        android:title="@string/pref_imdb_rating_label"
         />
 
 </PreferenceScreen>
