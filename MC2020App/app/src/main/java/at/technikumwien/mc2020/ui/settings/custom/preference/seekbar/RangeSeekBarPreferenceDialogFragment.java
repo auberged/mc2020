@@ -56,7 +56,9 @@ public class RangeSeekBarPreferenceDialogFragment extends PreferenceDialogFragme
 
         int minValue = pref.getmMinValue();
         int maxValue = pref.getmMaxValue();
-        if(minValue < MIN_VALUE){
+
+        // If minValue is smaller than MIN_Value or user has not set the imdb rating yet minValue is set to MIN_VALUE.
+        if(minValue < MIN_VALUE || !pref.isInitialValueSet()){
             rangeSeekBar.setSelectedMinValue(MIN_VALUE);
             selectedMinValue = MIN_VALUE;
         } else{
@@ -64,7 +66,8 @@ public class RangeSeekBarPreferenceDialogFragment extends PreferenceDialogFragme
             selectedMinValue = minValue;
         }
 
-        if(maxValue > MAX_VALUE){
+        // If maxValue is greater than MAX_VALUE or user has not set the imdb rating yet maxValue is set to MAX_VALUE.
+        if(maxValue > MAX_VALUE || !pref.isInitialValueSet()){
             rangeSeekBar.setSelectedMaxValue(MAX_VALUE);
             selectedMaxValue = MAX_VALUE;
         } else{

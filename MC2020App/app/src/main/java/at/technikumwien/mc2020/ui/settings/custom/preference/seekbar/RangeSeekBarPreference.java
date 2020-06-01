@@ -15,6 +15,8 @@ public class RangeSeekBarPreference extends DialogPreference {
 
     private int mMaxValue;
 
+    private boolean isInitialValueSet = false;
+
     public RangeSeekBarPreference(Context context){
         super(context);
     }
@@ -35,6 +37,9 @@ public class RangeSeekBarPreference extends DialogPreference {
         setNegativeButtonText(context.getResources().getString(R.string.cancel_Button));
     }
 
+    public boolean isInitialValueSet() {
+        return isInitialValueSet;
+    }
 
     public int getmMinValue() {
         return mMinValue;
@@ -80,6 +85,7 @@ public class RangeSeekBarPreference extends DialogPreference {
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
+
         return a.getInt(index, 0);
     }
 
@@ -87,5 +93,6 @@ public class RangeSeekBarPreference extends DialogPreference {
     protected void onSetInitialValue(@Nullable Object defaultValue) {
         setPersistedValue();
         setSummary(getCustomSummary());
+        isInitialValueSet = true;
     }
 }
