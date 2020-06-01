@@ -1,24 +1,41 @@
-package at.technikumwien.mc2020.ui.utilities;
+package at.technikumwien.mc2020.utilities;
 
 import android.net.Uri;
 import android.util.Log;
+
+import org.apache.http.client.utils.URIBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Scanner;
 
 public class NetworkUtils {
-    private static String API_ENDPOINT = "https://api.magicthegathering.io/v1/cards";
 
+    public static URL buildUrl(String urlString, int pageNr) {
+        URIBuilder b = null;
+        try {
+            b = new URIBuilder(urlString);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        b.addParameter("page", String.valueOf(pageNr));
 
-    public static URL buildUrl(int pageNr) {
-        //Uri tempUri = Uri.parse(API_ENDPOINT).buildUpon().
-        //        appendQueryParameter("page", Integer.toString(pageNr)).build();
-        Uri tempUri = Uri.parse(API_ENDPOINT); //.buildUpon().appendQueryParameter("page", Integer.toString(pageNr)).build();
+        URL url = null;
 
+        try {
+            url = b.build().toURL();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return url;
+
+        /*
+        Uri tempUri = Uri.parse(urlString).buildUpon().appendQueryParameter("page", Integer.toString(pageNr)).build();
         URL url = null;
 
         try {
@@ -28,6 +45,8 @@ public class NetworkUtils {
         }
 
         return url;
+
+        */
     }
 
     public static String getResponseFromHttpUrl(URL url) throws IOException {
