@@ -15,8 +15,9 @@ public class NetworkUtils {
 
 
     public static URL buildUrl(int pageNr) {
-        Uri tempUri = Uri.parse(API_ENDPOINT).buildUpon().
-                appendQueryParameter("page", Integer.toString(pageNr)).build();
+        //Uri tempUri = Uri.parse(API_ENDPOINT).buildUpon().
+        //        appendQueryParameter("page", Integer.toString(pageNr)).build();
+        Uri tempUri = Uri.parse(API_ENDPOINT); //.buildUpon().appendQueryParameter("page", Integer.toString(pageNr)).build();
 
         URL url = null;
 
