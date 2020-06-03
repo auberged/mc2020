@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services' // Google Services plugin
 
 android {
     compileSdkVersion 29
@@ -34,4 +35,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+    // Add the Firebase SDK for Firebase Database
+    implementation 'com.google.firebase:firebase-database:19.3.0'
+    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+
 }

@@ -38,16 +38,16 @@
     <!-- Key for numberPicker dialog in SharedPreferences for the release year preference  -->
     <string name="pref_release_year_key" translatable="false">release_year</string>
     <!-- Label for the release year preference  -->
-    <string name="pref_release_year_label" >Erscheinungsjahr</string>
+    <string name="pref_release_year_label">Erscheinungsjahr</string>
     <!-- Default value for the release year preference  -->
-    <string name="pref_release_year_default" translatable="false" >2020</string>
+    <string name="pref_release_year_default" translatable="false">2020</string>
 
     <!-- Key for numberPicker dialog in SharedPreferences for the release year preference  -->
     <string name="pref_imdb_rating_key" translatable="false">imdb_rating</string>
     <!-- Label for the release year preference  -->
-    <string name="pref_imdb_rating_label" >IMDB Bewertung</string>
+    <string name="pref_imdb_rating_label">IMDB Bewertung</string>
     <!-- Default value for the imdb rating preference  -->
-    <string name="pref_imdb_rating_default" translatable="false" >0-10</string>
+    <string name="pref_imdb_rating_default" translatable="false">0-10</string>
 
     <!-- Label for ok button in release year dialog  -->
     <string name="ok_Button">Ok</string>

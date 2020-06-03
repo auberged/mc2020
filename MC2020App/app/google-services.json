@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "561393155966",
+    "firebase_url": "https://mc2020app.firebaseio.com",
+    "project_id": "mc2020app",
+    "storage_bucket": "mc2020app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561393155966:android:30dd40a881f265129bbd2f",
+        "android_client_info": {
+          "package_name": "at.technikumwien.mc2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "561393155966-56q3v68ah6k32scj5igjcefcuma8r2m6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQb7UOZFpmn_T27Xa-95BOA2_V4GnTOQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "561393155966-56q3v68ah6k32scj5igjcefcuma8r2m6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
