@@ -16,8 +16,6 @@ import at.technikumwien.mc2020.ui.settings.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton imageButton;
-
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
 
@@ -27,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        mSwipeView = (SwipePlaceHolderView)findViewById(R.id.swipe_view);
+      mSwipeView = (SwipePlaceHolderView)findViewById(R.id.swipe_view);
         mContext = getApplicationContext();
 
         mSwipeView.getBuilder()

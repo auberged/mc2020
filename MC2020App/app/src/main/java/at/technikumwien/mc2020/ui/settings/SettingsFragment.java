@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.preference.ListPreference;
 import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
@@ -13,8 +14,15 @@ import androidx.preference.PreferenceScreen;
 import java.util.Set;
 
 import at.technikumwien.mc2020.R;
+import at.technikumwien.mc2020.ui.settings.custom.preference.number.picker.NumberPickerPreference;
+import at.technikumwien.mc2020.ui.settings.custom.preference.number.picker.NumberPickerPreferenceDialogFragment;
+import at.technikumwien.mc2020.ui.settings.custom.preference.seekbar.RangeSeekBarPreference;
+import at.technikumwien.mc2020.ui.settings.custom.preference.seekbar.RangeSeekBarPreferenceDialogFragment;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private static String TAG = SettingsFragment.class.getSimpleName();
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.pref_filter_criteria);
@@ -78,5 +86,22 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onDestroy() {
         super.onDestroy();
         getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onDisplayPreferenceDialog(Preference preference) {
+        DialogFragment dialogFragment = null;
+        if(preference instanceof NumberPickerPreference){
+            dialogFragment = NumberPickerPreferenceDialogFragment.newInstance(preference.getKey());
+        } else if(preference instanceof RangeSeekBarPreference){
+            dialogFragment = RangeSeekBarPreferenceDialogFragment.newInstance(preference.getKey());
+        }
+
+        if(dialogFragment != null){
+            dialogFragment.setTargetFragment(this, 0);
+            dialogFragment.show(this.getFragmentManager(), TAG);
+        } else{
+            super.onDisplayPreferenceDialog(preference);
+        }
     }
 }
