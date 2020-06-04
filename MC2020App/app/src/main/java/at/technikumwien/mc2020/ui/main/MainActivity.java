@@ -67,8 +67,7 @@ public class MainActivity extends AppCompatActivity implements
                         .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
-        // Instead of Image url, we want to load the Movie Class into the Movie Card
-        mSwipeView.addView(new MovieCard("https://i.pinimg.com/originals/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02.jpg", mContext, mSwipeView));
+        //mSwipeView.addView(new MovieCard("https://i.pinimg.com/originals/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02.jpg", mContext, mSwipeView));
         loadData();
 
         /*imageButton = findViewById(R.id.id_preference_button);
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements
     private void loadData() {
         URL apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie?api_key=db94b1f559af23f5a8bd53a8dbec0c1e&language=de&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=2019", 5);
 
-        Log.d("URL", apiUrl.toString());
+        Log.d("TINDER", apiUrl.toString());
 
         Bundle queryBundle = new Bundle();
         queryBundle.putString(API_URL_EXTRA, apiUrl.toString());
@@ -156,8 +155,8 @@ public class MainActivity extends AppCompatActivity implements
             try {
                 List<MovieModel> movies = parseDataToMovies(data);
                 for (MovieModel movie : movies ) {
-                    mSwipeView.addView(new MovieCard(movie.poster_url, mContext, mSwipeView));
-                    Log.d("URL", movie.id + ": " + movie.title + " - " + movie.poster_url);
+                    mSwipeView.addView(new MovieCard(movie, mContext, mSwipeView));
+                    Log.d("TINDER", movie.id + ": " + movie.title + " - " + movie.poster_url);
                 }
 
             } catch (JSONException e) {
