@@ -34,6 +34,7 @@
     <!-- Value in SharedPreferences for the dialog in genre preference  -->
     <string name="selectPreferredGenre">Gewünschte Genre auswählen</string>
     <string name="genreCountSelectedMessage">Genre ausgewählt</string>
+    <string name="explore">Entdecken</string>
 
     <!-- Key for numberPicker dialog in SharedPreferences for the release year preference  -->
     <string name="pref_release_year_key" translatable="false">release_year</string>

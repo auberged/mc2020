@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="at.technikumwien.mc2020">
 
     <application
@@ -9,14 +10,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/filterCriteriaSettings"
             android:parentActivityName=".ui.main.MainActivity"
-            ></activity>
+            />
         <activity android:name=".ui.detail.DetailActivity" />
         <activity android:name=".ui.list.ListActivity" />
-        <activity android:name=".ui.main.MainActivity">
+
+        <!--
+        For the main activity I specify two important bits
+        1. Always display the content in portrait mode
+        1.2 Suppress the warning....
+        2. Hide the title bar, we do not need it TODO -->
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
