@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/movie_card_width"
     android:layout_height="@dimen/movie_card_height"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="50dp"
     android:layout_marginBottom="50dp"
     android:orientation="vertical">
 
@@ -19,7 +19,7 @@
         app:cardPreventCornerOverlap="false">
 
         <ImageView
-            android:id="@+id/profileImageView"
+            android:id="@+id/iv_movie_poster_swipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
