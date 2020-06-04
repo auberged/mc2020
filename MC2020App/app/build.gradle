@@ -4,6 +4,11 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+
     defaultConfig {
         applicationId "at.technikumwien.mc2020"
         minSdkVersion 16
@@ -23,6 +28,12 @@ android {
 
 }
 
+repositories {
+    maven{
+        url 'https://raw.github.com/zeeshanejaz/unirest-android/mvn-repo'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -39,4 +50,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+
+    implementation 'org.apache.httpcomponents:httpclient:4.5.12'
 }
