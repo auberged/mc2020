@@ -26,6 +26,7 @@ public class ExampleUnitTest {
     public void addition_isCorrect() throws JSONException {
 
         // image: https://image.tmdb.org/t/p/w600_and_h900_bestv2/dCdTAOxkcNnsFVKHQnxbklvGRzF.jpg
+        // https://developers.themoviedb.org/3/movies/get-movie-details
 
         URL apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie?api_key=db94b1f559af23f5a8bd53a8dbec0c1e&language=de&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=2019", 5);
         System.out.println(apiUrl.toString());
