@@ -5,6 +5,12 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
+    signingConfigs {
+        debug {
+            storeFile file("/debug.keystore")
+        }
+    }
+
     defaultConfig {
         applicationId "at.technikumwien.mc2020"
         minSdkVersion 16
@@ -19,6 +25,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 
