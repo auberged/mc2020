@@ -7,16 +7,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
+import com.yuyakaido.android.cardstackview.CardStackView;
+
+import at.technikumwien.mc2020.CardAdapter;
 import at.technikumwien.mc2020.R;
 import at.technikumwien.mc2020.ui.settings.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
+
     private ImageButton imageButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         /*imageButton = findViewById(R.id.id_preference_button);
 
@@ -27,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
     }
+
+
 
     private void openSettingsActivity(){
         Intent startSettingsActivity = new Intent(this, SettingsActivity.class);

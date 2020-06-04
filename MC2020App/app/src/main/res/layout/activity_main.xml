@@ -38,6 +38,7 @@
         android:layout_marginTop="34dp"
         android:layout_marginEnd="18dp"
         android:layout_marginRight="18dp"
+        android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/imageView4"
         app:srcCompat="@drawable/icon_settings" />
@@ -49,8 +50,12 @@
         android:layout_marginTop="34dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
+        android:contentDescription="@null"
         app:layout_constraintEnd_toStartOf="@+id/iv_icon_settings"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_user" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
