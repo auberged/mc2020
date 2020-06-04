@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -38,7 +39,7 @@ public class MovieCard {
     @Resolve
     private void onResolved(){
         // Load here the Movie Poster into the layout
-        //Glide.with(mContext).load(ImageUrl).into(profileImageView);
+        Glide.with(mContext).load(ImageUrl).into(profileImageView);
     }
 
     @SwipeOut

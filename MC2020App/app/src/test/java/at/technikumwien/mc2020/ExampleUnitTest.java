@@ -13,6 +13,8 @@ import java.util.List;
 import at.technikumwien.mc2020.utilities.MovieModel;
 import at.technikumwien.mc2020.utilities.NetworkUtils;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -49,9 +51,7 @@ public class ExampleUnitTest {
             System.out.println(movie.id + ": " + movie.title + " - " + movie.poster_url);
         }
 
-
-
-        //assertEquals(4, 2 + 2);
+        assertEquals(4, 2 + 2);
     }
 
     public List<MovieModel> parseDataToMovies(String apiResult) throws JSONException {
