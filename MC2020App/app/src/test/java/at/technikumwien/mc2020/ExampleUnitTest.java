@@ -86,7 +86,7 @@ public class ExampleUnitTest {
 
             JSONArray genres = jsonCard.getJSONArray("genre_ids");
             for (int j = 0; j < genres.length(); j++) {
-                movie.addGenre(genres.getString(j));
+                movie.addGenre(genres.getInt(j));
             }
 
             movies.add(movie);
