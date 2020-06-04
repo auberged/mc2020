@@ -55,7 +55,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_user" />
 
-
+    <com.mindorks.placeholderview.SwipePlaceHolderView
+        android:id="@+id/swipe_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
