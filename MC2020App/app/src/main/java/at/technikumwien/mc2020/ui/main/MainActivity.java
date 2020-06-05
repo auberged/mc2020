@@ -6,13 +6,11 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.mindorks.placeholderview.SwipeDecor;
@@ -22,15 +20,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import at.technikumwien.mc2020.MovieCard;
 import at.technikumwien.mc2020.R;
 import at.technikumwien.mc2020.ui.settings.SettingsActivity;
+import at.technikumwien.mc2020.utilities.FilterCriteria;
 import at.technikumwien.mc2020.utilities.MovieModel;
 import at.technikumwien.mc2020.utilities.NetworkUtils;
 
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
+    private Intent startSettingsActivity;
+    private List<MovieModel> movies;
 
     private static final int LOADER_ID = 4012;
     private static final String DATA_EXTRA = "data";
@@ -54,10 +57,9 @@ public class MainActivity extends AppCompatActivity implements
 
         setContentView(R.layout.activity_main);
 
-
-
         mSwipeView = (SwipePlaceHolderView)findViewById(R.id.swipe_view);
         mContext = getApplicationContext();
+        movies = new LinkedList<>();
 
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
@@ -67,23 +69,62 @@ public class MainActivity extends AppCompatActivity implements
                         .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
+        //FilterCriteria filterCriteria = FilterCriteria.getInstance (mContext);
+        //Log.d("TINDER", filterCriteria.getType());
+
+
         //mSwipeView.addView(new MovieCard("https://i.pinimg.com/originals/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02.jpg", mContext, mSwipeView));
         loadData();
 
-        /*imageButton = findViewById(R.id.id_preference_button);
-
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        View settingsButton = findViewById(R.id.iv_icon_settings);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openSettingsActivity();
             }
-        });*/
+        });
+
+        View profileButton = findViewById(R.id.iv_icon_user);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProfileActivity();
+            }
+        });
+
+
+
+    }
+
+    private void openSettingsActivity(){
+        startSettingsActivity = new Intent(this, SettingsActivity.class);
+        startActivity(startSettingsActivity);
+    }
+
+
+    private void openProfileActivity(){
+        Log.d("TINDER", "****");
+        showErrorToast();
 
     }
 
 
+    //    @Override
+    //    protected void onSaveInstanceState(@NonNull Bundle outState) {
+    //        super.onSaveInstanceState(outState);
+    //        outState.putInt(PAGE_NR_EXTRA, PAGE_NUMBER);
+    //    }
+
     private void loadData() {
-        URL apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie?api_key=db94b1f559af23f5a8bd53a8dbec0c1e&language=de&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=2019", 5);
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("language", "de");
+        parameter.put("sort_by", "popularity.desc");
+        parameter.put("include_adult", "false");
+        parameter.put("include_video", "false");
+        parameter.put("year", "2020");
+        parameter.put("page", "1");
+
+        URL apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie", parameter);
 
         Log.d("TINDER", apiUrl.toString());
 
@@ -153,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements
             showErrorToast();
         } else{
             try {
-                List<MovieModel> movies = parseDataToMovies(data);
+                movies = parseDataToMovies(data);
                 for (MovieModel movie : movies ) {
                     mSwipeView.addView(new MovieCard(movie, mContext, mSwipeView));
                     Log.d("TINDER", movie.id + ": " + movie.title + " - " + movie.poster_url);
@@ -220,7 +261,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void showErrorToast() {
-        Context context = getApplicationContext();
+        //Context context = getApplicationContext();
+        Context context = mContext;
         CharSequence text = "ERRR";//getString(R.string.error_message);
         int duration = Toast.LENGTH_SHORT;
 
@@ -228,16 +270,6 @@ public class MainActivity extends AppCompatActivity implements
         toast.show();
     }
 
-//    @Override
-//    protected void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putInt(PAGE_NR_EXTRA, PAGE_NUMBER);
-//    }
 
 
-
-    private void openSettingsActivity(){
-        Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
-        startActivity(startSettingsActivity);
-    }
 }

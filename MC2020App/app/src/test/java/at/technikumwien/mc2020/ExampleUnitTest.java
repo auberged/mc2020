@@ -1,5 +1,7 @@
 package at.technikumwien.mc2020;
 
+import android.content.ClipData;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,9 +9,14 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import at.technikumwien.mc2020.utilities.FilterCriteria;
 import at.technikumwien.mc2020.utilities.MovieModel;
 import at.technikumwien.mc2020.utilities.NetworkUtils;
 
@@ -25,13 +32,30 @@ public class ExampleUnitTest {
 
 
     @Test
-    public void addition_isCorrect() throws JSONException {
+    public void console_tester() throws JSONException {
 
         // image: https://image.tmdb.org/t/p/w600_and_h900_bestv2/dCdTAOxkcNnsFVKHQnxbklvGRzF.jpg
         // https://developers.themoviedb.org/3/movies/get-movie-details
 
-        URL apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie?api_key=db94b1f559af23f5a8bd53a8dbec0c1e&language=de&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=2019", 5);
+        FilterCriteria filter = FilterCriteria.getInstance(null);
+        //System.out.println(filter.getReleaseYear());
+
+                /*
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("language", "de");
+        parameter.put("sort_by", "popularity.desc");
+        parameter.put("include_adult", "false");
+        parameter.put("include_video", "false");
+        parameter.put("year", "2020");
+        parameter.put("page", "1");
+
+        URL apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie", parameter);
+
+
+        //URL apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie?api_key=db94b1f559af23f5a8bd53a8dbec0c1e&language=de&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=2019", 5);
         System.out.println(apiUrl.toString());
+
 
         String apiResult = null;
         try {
@@ -50,6 +74,9 @@ public class ExampleUnitTest {
         for (MovieModel movie : movies ) {
             System.out.println(movie.id + ": " + movie.title + " - " + movie.poster_url);
         }
+
+        */
+
 
         assertEquals(4, 2 + 2);
     }
@@ -93,6 +120,7 @@ public class ExampleUnitTest {
         }
 
         return movies;
+
 
     }
 

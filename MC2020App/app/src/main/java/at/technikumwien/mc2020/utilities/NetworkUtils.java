@@ -1,6 +1,5 @@
 package at.technikumwien.mc2020.utilities;
 
-import android.net.Uri;
 import android.util.Log;
 
 import org.apache.http.client.utils.URIBuilder;
@@ -8,21 +7,32 @@ import org.apache.http.client.utils.URIBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 public class NetworkUtils {
 
-    public static URL buildUrl(String urlString, int pageNr) {
+
+    private static final String API_KEY = "db94b1f559af23f5a8bd53a8dbec0c1e";
+
+    public static URL buildUrl(String urlString, Map<String, String> parameter) {
         URIBuilder b = null;
         try {
             b = new URIBuilder(urlString);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        b.addParameter("page", String.valueOf(pageNr));
+        b.addParameter("api_key", API_KEY);
+
+        for (Iterator<Map.Entry<String, String>> it = parameter.entrySet().iterator();
+             it.hasNext();) {
+            Map.Entry<String, String> pair = it.next();
+            b.addParameter(pair.getKey(), pair.getValue());
+        }
+
 
         URL url = null;
 
