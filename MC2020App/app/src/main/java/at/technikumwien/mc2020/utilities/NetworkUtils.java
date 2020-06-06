@@ -2,12 +2,9 @@ package at.technikumwien.mc2020.utilities;
 
 import android.util.Log;
 
-import org.apache.http.client.utils.URIBuilder;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
@@ -18,31 +15,19 @@ public class NetworkUtils {
 
     private static final String API_KEY = "db94b1f559af23f5a8bd53a8dbec0c1e";
 
-    public static URL buildUrl(String urlString, Map<String, String> parameter) {
-        URIBuilder b = null;
-        try {
-            b = new URIBuilder(urlString);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        b.addParameter("api_key", API_KEY);
+    public static String buildUrl(String urlString, Map<String, String> parameter) {
+        parameter.put("api_key", API_KEY);
 
+        StringBuilder urlStringBuilder = new StringBuilder(urlString + "?");
         for (Iterator<Map.Entry<String, String>> it = parameter.entrySet().iterator();
              it.hasNext();) {
             Map.Entry<String, String> pair = it.next();
-            b.addParameter(pair.getKey(), pair.getValue());
+
+            urlStringBuilder.append(String.format("&%s=%s", pair.getKey(), pair.getValue()));
         }
+        urlString = urlStringBuilder.toString();
 
-
-        URL url = null;
-
-        try {
-            url = b.build().toURL();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return url;
+        return urlString;
 
         /*
         Uri tempUri = Uri.parse(urlString).buildUpon().appendQueryParameter("page", Integer.toString(pageNr)).build();

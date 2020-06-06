@@ -124,12 +124,12 @@ public class MainActivity extends AppCompatActivity implements
         parameter.put("year", "2020");
         parameter.put("page", "1");
 
-        URL apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie", parameter);
+        String apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie", parameter);
 
-        Log.d("TINDER", apiUrl.toString());
+        Log.d("TINDER", apiUrl);
 
         Bundle queryBundle = new Bundle();
-        queryBundle.putString(API_URL_EXTRA, apiUrl.toString());
+        queryBundle.putString(API_URL_EXTRA, apiUrl);
 
         LoaderManager loaderManager = getSupportLoaderManager();
         Loader<String> apiLoader = loaderManager.getLoader(LOADER_ID);

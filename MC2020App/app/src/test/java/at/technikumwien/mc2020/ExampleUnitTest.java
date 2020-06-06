@@ -37,10 +37,9 @@ public class ExampleUnitTest {
         // image: https://image.tmdb.org/t/p/w600_and_h900_bestv2/dCdTAOxkcNnsFVKHQnxbklvGRzF.jpg
         // https://developers.themoviedb.org/3/movies/get-movie-details
 
-        FilterCriteria filter = FilterCriteria.getInstance(null);
+        //FilterCriteria filter = FilterCriteria.getInstance(null);
         //System.out.println(filter.getReleaseYear());
 
-                /*
 
         Map<String, String> parameter = new HashMap<>();
         parameter.put("language", "de");
@@ -50,12 +49,13 @@ public class ExampleUnitTest {
         parameter.put("year", "2020");
         parameter.put("page", "1");
 
-        URL apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie", parameter);
+        String apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie", parameter);
 
 
         //URL apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie?api_key=db94b1f559af23f5a8bd53a8dbec0c1e&language=de&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=2019", 5);
-        System.out.println(apiUrl.toString());
+        System.out.println(apiUrl);
 
+                /*
 
         String apiResult = null;
         try {
