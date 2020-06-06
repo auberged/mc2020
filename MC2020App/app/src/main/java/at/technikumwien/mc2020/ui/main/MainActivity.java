@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
+import com.mindorks.placeholderview.listeners.ItemRemovedListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,6 +59,20 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         mSwipeView = (SwipePlaceHolderView)findViewById(R.id.swipe_view);
+        mSwipeView.addItemRemoveListener(new ItemRemovedListener() {
+
+            @Override
+            public void onItemRemoved(int count) {
+                //do something when the count changes to some specific value.
+                //For Example: Call server to fetch more data when count is zero
+                Log.d("TINDER", String.valueOf(count));
+                if ( (count < 10) && (count % 3 == 0)) {
+                    Log.d("TINDER", "load more .....");
+                    loadData();
+                }
+            }
+        });
+
         mContext = getApplicationContext();
         movies = new LinkedList<>();
 
@@ -96,6 +111,8 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+
+
     private void openSettingsActivity(){
         startSettingsActivity = new Intent(this, SettingsActivity.class);
         startActivity(startSettingsActivity);
@@ -122,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements
         parameter.put("include_adult", "false");
         parameter.put("include_video", "false");
         parameter.put("year", "2020");
-        parameter.put("page", "1");
+        parameter.put("page", String.valueOf(PAGE_NUMBER));
 
         String apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie", parameter);
 
@@ -138,8 +155,6 @@ public class MainActivity extends AppCompatActivity implements
         } else{
             loaderManager.restartLoader(LOADER_ID, queryBundle, this);
         }
-
-        PAGE_NUMBER++;
 
     }
 
@@ -197,14 +212,15 @@ public class MainActivity extends AppCompatActivity implements
                 movies = parseDataToMovies(data);
                 for (MovieModel movie : movies ) {
                     mSwipeView.addView(new MovieCard(movie, mContext, mSwipeView));
-                    Log.d("TINDER", movie.id + ": " + movie.title + " - " + movie.poster_url);
+                    //Log.d("TINDER", movie.id + ": " + movie.title + " - " + movie.poster_url);
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
+        PAGE_NUMBER++;
+
 
     }
 
@@ -247,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements
 
             movies.add(movie);
         }
+
 
         return movies;
 

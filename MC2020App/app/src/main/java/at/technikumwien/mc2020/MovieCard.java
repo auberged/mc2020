@@ -33,19 +33,19 @@ public class MovieCard {
     private SwipePlaceHolderView mSwipeView;
     private MovieModel movieData;
 
-    public MovieCard(String ImageUrl, Context mContext, SwipePlaceHolderView mSwipeView) {
-        this.ImageUrl = ImageUrl;
-        this.mContext = mContext;
-        this.mSwipeView = mSwipeView;
-    }
-
     public MovieCard(MovieModel movie, Context mContext, SwipePlaceHolderView mSwipeView) {
         this.ImageUrl = movie.poster_url;
         this.movieData = movie;
         this.mContext = mContext;
         this.mSwipeView = mSwipeView;
 
+
     }
+
+    private void awesomeButtonClicked() {
+        Log.d("TINDER", "more details");
+    }
+
 
     @Resolve
     private void onResolved(){
