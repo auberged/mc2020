@@ -55,7 +55,7 @@ public class MovieCard {
 
     @SwipeOut
     private void onSwipedOut(){
-        Log.d("TINDER", "Disliked movie: " + movieData.title);
+        Log.d("TINDER", "Disliked movie: " + movieData.title +  " " + movieData.poster_url);
         //mSwipeView.addView(this);
     }
 
@@ -67,7 +67,7 @@ public class MovieCard {
     @SwipeIn
     private void onSwipeIn(){
 
-        Log.d("TINDER", "Liked movie: " + movieData.title);
+        Log.d("TINDER", "Liked movie: " + movieData.title +  " " + movieData.poster_url);
     }
 
     @SwipeInState

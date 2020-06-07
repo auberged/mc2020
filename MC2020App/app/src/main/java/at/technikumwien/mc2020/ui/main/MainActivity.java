@@ -276,8 +276,16 @@ public class MainActivity extends AppCompatActivity implements
             String title = jsonCard.getString("title");
             String description = jsonCard.getString("overview");
             double vote_average = jsonCard.getDouble("vote_average");
-            String poster_url = jsonCard.getString("poster_path");
+            String poster_url = jsonCard.getString("poster_path").replace("null", "");
             String releaseDate = jsonCard.getString("release_date");
+
+            // check if movie has a poster url
+            if (poster_url.equals(""))
+            {
+                // if not, don't add it to the list
+                Log.d("TINDER", "Movie " + title + " has no poster url!");
+                continue;
+            }
 
             MovieModel movie = new MovieModel(id, title, description, vote_average, poster_url, releaseDate);
 
