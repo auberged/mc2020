@@ -1,6 +1,7 @@
 package at.technikumwien.mc2020.ui.main;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
@@ -8,6 +9,7 @@ import androidx.loader.content.Loader;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements
     private static int PAGE_NUMBER = 1;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +64,15 @@ public class MainActivity extends AppCompatActivity implements
         mSwipeView = (SwipePlaceHolderView)findViewById(R.id.swipe_view);
         mSwipeView.addItemRemoveListener(new ItemRemovedListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onItemRemoved(int count) {
-                //do something when the count changes to some specific value.
-                //For Example: Call server to fetch more data when count is zero
+                //Log.d("TINDER", FilterCriteria.getInstance(mContext).getType() );
+                //Log.d("TINDER", String.valueOf(FilterCriteria.getInstance(mContext).getImdbMaxRating()));
+                //Log.d("TINDER", String.valueOf(FilterCriteria.getInstance(mContext).getImdbMinRating()));
+                //Log.d("TINDER", String.valueOf(FilterCriteria.getInstance(mContext).getReleaseYear()));
+                //Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()));
+
                 Log.d("TINDER", String.valueOf(count));
                 if ( (count < 10) && (count % 3 == 0)) {
                     Log.d("TINDER", "load more .....");
@@ -132,16 +140,27 @@ public class MainActivity extends AppCompatActivity implements
     //        outState.putInt(PAGE_NR_EXTRA, PAGE_NUMBER);
     //    }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void loadData() {
         Map<String, String> parameter = new HashMap<>();
         parameter.put("language", "de");
         parameter.put("sort_by", "popularity.desc");
         parameter.put("include_adult", "false");
         parameter.put("include_video", "false");
-        parameter.put("year", "2020");
+        parameter.put("year", String.valueOf(FilterCriteria.getInstance(mContext).getReleaseYear()));
+        parameter.put("vote_average.lte", String.valueOf(FilterCriteria.getInstance(mContext).getImdbMaxRating()));
+        parameter.put("vote_average.gte", String.valueOf(FilterCriteria.getInstance(mContext).getImdbMinRating()));
+        //parameter.put("with_genres", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()) );
         parameter.put("page", String.valueOf(PAGE_NUMBER));
 
-        String apiUrl = NetworkUtils.buildUrl("https://api.themoviedb.org/3/discover/movie", parameter);
+        String base_url = "https://api.themoviedb.org/3/discover/";
+        if (FilterCriteria.getInstance(mContext).getType().equals("series"))
+            base_url += "tv";
+        else
+            base_url += "movie";
+
+
+        String apiUrl = NetworkUtils.buildUrl(base_url, parameter);
 
         Log.d("TINDER", apiUrl);
 
@@ -210,6 +229,12 @@ public class MainActivity extends AppCompatActivity implements
         } else{
             try {
                 movies = parseDataToMovies(data);
+                if (movies == null)
+                {
+                    showErrorToast();
+                    return;
+                }
+
                 for (MovieModel movie : movies ) {
                     mSwipeView.addView(new MovieCard(movie, mContext, mSwipeView));
                     //Log.d("TINDER", movie.id + ": " + movie.title + " - " + movie.poster_url);
