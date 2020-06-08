@@ -13,6 +13,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import android.widget.Toast;
 
 import com.mindorks.placeholderview.SwipeDecor;
@@ -33,6 +37,7 @@ import java.util.Map;
 
 import at.technikumwien.mc2020.MovieCard;
 import at.technikumwien.mc2020.R;
+import at.technikumwien.mc2020.ui.launcher.LauncherActivity;
 import at.technikumwien.mc2020.ui.settings.SettingsActivity;
 import at.technikumwien.mc2020.utilities.FilterCriteria;
 import at.technikumwien.mc2020.utilities.MovieModel;
@@ -52,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements
     private static final String API_URL_EXTRA = "api_url";
 
     private static int PAGE_NUMBER = 1;
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -114,12 +118,7 @@ public class MainActivity extends AppCompatActivity implements
                 openProfileActivity();
             }
         });
-
-
-
     }
-
-
 
     private void openSettingsActivity(){
         startSettingsActivity = new Intent(this, SettingsActivity.class);
@@ -319,7 +318,4 @@ public class MainActivity extends AppCompatActivity implements
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
-
-
-
 }

@@ -1,8 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services' // Google Services plugin
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
+
+    signingConfigs {
+        debug {
+            storeFile file("/debug.keystore")
+        }
+    }
 
     testOptions {
         unitTests.returnDefaultValues = true
@@ -19,7 +26,6 @@ android {
         exclude 'META-INF/ASL2.0'
     }
 
-
     defaultConfig {
         applicationId "at.technikumwien.mc2020"
         minSdkVersion 16
@@ -34,6 +40,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -61,7 +70,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
-
+    // Add the Firebase SDK for Firebase Database
+    implementation 'com.google.firebase:firebase-database:19.3.0'
+    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+    
     testImplementation 'org.json:json:20200518'
 
 }
