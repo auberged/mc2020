@@ -55,7 +55,7 @@
         android:contentDescription="@null"
         app:layout_constraintEnd_toStartOf="@+id/iv_icon_settings"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_user" />
+        app:srcCompat="@drawable/icon_popcorn" />
 
     <ImageButton
         android:id="@+id/ib_more"
@@ -77,6 +77,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="28dp"
         android:background="@null"
+        android:contentDescription="like button"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ib_more"
@@ -90,6 +91,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="28dp"
         android:background="@null"
+        android:contentDescription="dislike button"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ib_more"
