@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +38,7 @@ import java.util.Map;
 
 import at.technikumwien.mc2020.MovieCard;
 import at.technikumwien.mc2020.R;
+import at.technikumwien.mc2020.data.database.FirebaseHandler;
 import at.technikumwien.mc2020.ui.launcher.LauncherActivity;
 import at.technikumwien.mc2020.ui.settings.SettingsActivity;
 import at.technikumwien.mc2020.utilities.FilterCriteria;
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements
                 //Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()));
 
                 Log.d("TINDER", String.valueOf(count));
-                if ( (count < 10) && (count % 3 == 0)) {
+                if ( (count < 20) && (count % 6 == 0)) {
                     Log.d("TINDER", "load more .....");
                     loadData();
                 }
@@ -127,8 +129,16 @@ public class MainActivity extends AppCompatActivity implements
 
 
     private void openProfileActivity(){
-        Log.d("TINDER", "****");
-        showErrorToast();
+        Log.d("TINDER", "share");
+        //showErrorToast();
+        List<MovieModel> movies;
+
+        movies = FirebaseHandler.getInstance().getAllLikedMovies();
+
+        for (MovieModel movie: movies ) {
+            Log.d("TINDER", movie.title);
+
+        }
 
     }
 

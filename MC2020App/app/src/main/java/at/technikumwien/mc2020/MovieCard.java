@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -15,6 +17,8 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeInState;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
 
+import at.technikumwien.mc2020.data.database.Constants;
+import at.technikumwien.mc2020.data.database.FirebaseHandler;
 import at.technikumwien.mc2020.utilities.MovieModel;
 
 
@@ -28,7 +32,7 @@ public class MovieCard {
     @View(R.id.iv_movie_poster_swipe)
     private ImageView profileImageView;
 
-    private String ImageUrl; // Replace Image with the Movie Class later....
+    private String ImageUrl;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
     private MovieModel movieData;
@@ -41,11 +45,6 @@ public class MovieCard {
 
     }
 
-    private void awesomeButtonClicked() {
-        Log.d("TINDER", "more details");
-    }
-
-
     @Resolve
     private void onResolved(){
         // Load here the Movie Poster into the layout
@@ -55,7 +54,8 @@ public class MovieCard {
     @SwipeOut
     private void onSwipedOut(){
         Log.d("TINDER", "Disliked movie: " + movieData.title +  " " + movieData.poster_url);
-        //mSwipeView.addView(this);
+        FirebaseHandler.getInstance().saveDislikedMovie(movieData);
+        //FirebaseDatabase.getInstance().getReference().child(Constants.DISLIKED_MOVIES).child(FirebaseAuth.getInstance().getUid()).child(String.valueOf(movieData.id)).setValue(movieData.title);
     }
 
     @SwipeCancelState
@@ -67,6 +67,8 @@ public class MovieCard {
     private void onSwipeIn(){
 
         Log.d("TINDER", "Liked movie: " + movieData.title +  " " + movieData.poster_url);
+        FirebaseHandler.getInstance().saveLikedMovie(movieData);
+
     }
 
     @SwipeInState

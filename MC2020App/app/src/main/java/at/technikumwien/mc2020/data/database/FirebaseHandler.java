@@ -1,5 +1,7 @@
 package at.technikumwien.mc2020.data.database;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,14 +59,17 @@ public class FirebaseHandler {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.getChildren()){
 
+                    Log.d("TINDER", data.getKey());
                     MovieModel m = data.getValue(MovieModel.class);
-                    movies.add(m);
+                    //movies.add(m);
+                    //assert m != null;
+                    Log.d("TINDER", m.title);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d("TINDER", "The read failed: " + databaseError.getCode());
             }
         });
 
