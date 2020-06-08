@@ -60,6 +60,8 @@ public class FirebaseHandler {
                 for(DataSnapshot data: dataSnapshot.getChildren()){
 
                     Log.d("TINDER", data.getKey());
+
+                    // TODO hier schmeists ihn, aber im debug sieht man dass die daten und alles da sind, alles ready im value, key abrufen geht auch
                     MovieModel m = data.getValue(MovieModel.class);
                     //movies.add(m);
                     //assert m != null;
