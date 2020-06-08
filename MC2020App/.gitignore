@@ -13,6 +13,7 @@
 .externalNativeBuild
 .cxx
 
+.idea
 
 # Built application files
 *.apk

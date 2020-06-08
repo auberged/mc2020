@@ -11,6 +11,21 @@ android {
         }
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+
     defaultConfig {
         applicationId "at.technikumwien.mc2020"
         minSdkVersion 16
@@ -33,11 +48,22 @@ android {
 
 }
 
+repositories {
+    maven{
+        url 'https://raw.github.com/zeeshanejaz/unirest-android/mvn-repo'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation 'com.mindorks:placeholderview:0.7.1'
+    implementation 'com.android.support:cardview-v7:25.3.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta6"
     implementation 'androidx.preference:preference:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -47,5 +73,7 @@ dependencies {
     // Add the Firebase SDK for Firebase Database
     implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+    
+    testImplementation 'org.json:json:20200518'
 
 }
