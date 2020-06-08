@@ -33,7 +33,6 @@
             android:parentActivityName=".ui.main.MainActivity" />
         <activity android:name=".ui.detail.DetailActivity" />
         <activity android:name=".ui.list.ListActivity" />
-        <activity android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>
