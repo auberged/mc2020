@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import at.technikumwien.mc2020.utilities.MovieModel;
 
@@ -70,7 +71,7 @@ public class FirebaseHandler {
         return movies;
     }
 
-    public MovieModel getMovieDetails(String movieId){
+    /*public MovieModel getMovieDetails(String movieId){
         String userId = currentUser();
         final MovieModel movie = null;
 
@@ -89,7 +90,7 @@ public class FirebaseHandler {
 
         // Aufrufe laufen asynchron ab. Daher kann es sein, dass man hier auf einen null Wert zurückliefert. Aus diesem Grund sollten der Firebase Aufruf immer direkt, wo er in den Activities benötigt wird, aufgerufen werden.
         return movie[0];
-    }
+    }*/
 
     // Movie getMovieDetails
 
