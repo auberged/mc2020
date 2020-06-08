@@ -39,7 +39,6 @@ public class MovieCard {
         this.mContext = mContext;
         this.mSwipeView = mSwipeView;
 
-
     }
 
     private void awesomeButtonClicked() {
