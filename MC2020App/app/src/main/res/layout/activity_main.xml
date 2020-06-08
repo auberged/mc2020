@@ -57,14 +57,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_user" />
 
-    <com.mindorks.placeholderview.SwipePlaceHolderView
-        android:id="@+id/swipe_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="parent">
-
-    </com.mindorks.placeholderview.SwipePlaceHolderView>
-
     <ImageButton
         android:id="@+id/ib_more"
         android:layout_width="59dp"
@@ -102,5 +94,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ib_more"
         app:srcCompat="@drawable/iv_dislike" />
+
+    <com.mindorks.placeholderview.SwipePlaceHolderView
+        android:id="@+id/swipe_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+    </com.mindorks.placeholderview.SwipePlaceHolderView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
