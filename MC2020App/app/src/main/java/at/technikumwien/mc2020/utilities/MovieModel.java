@@ -18,6 +18,10 @@ public class MovieModel {
     public String releaseDate;
     public List<String> genres;
 
+    public MovieModel(){
+
+    }
+
     public MovieModel(int id, String title, String description, double vote_average, String poster_url, String releaseDate) {
         this.id = id;
         this.title = title;
