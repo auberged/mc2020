@@ -36,6 +36,7 @@ import java.util.Map;
 import at.technikumwien.mc2020.MovieCard;
 import at.technikumwien.mc2020.R;
 import at.technikumwien.mc2020.data.database.FirebaseHandler;
+import at.technikumwien.mc2020.ui.launcher.LauncherActivity;
 import at.technikumwien.mc2020.ui.settings.SettingsActivity;
 import at.technikumwien.mc2020.utilities.FilterCriteria;
 import at.technikumwien.mc2020.utilities.MovieModel;
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements
                 //Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()));
 
                 Log.d("TINDER", String.valueOf(count));
-                if ( (count <= 30) && (count % 5 == 0)) {
+                if ( (count <= 30) && (count % 5 == 0) || (count <= 50) && (count % 10 == 0)) {
                     Log.d("TINDER", "load more .....");
                     loadData();
                 }
@@ -292,6 +293,7 @@ public class MainActivity extends AppCompatActivity implements
         };
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onLoadFinished(Loader<String> loader, final String responseData) {
         if(responseData == null){
