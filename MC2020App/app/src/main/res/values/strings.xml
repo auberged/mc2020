@@ -60,6 +60,9 @@
 
     <!-- Label for release year button in release year dialog  -->
     <string name="imdb_rating_dialog_title">IMDB Bewertung festlegen:</string>
+    <string name="shareMovieTitle">Teile mit deinen Freunden!</string>
+    <string name="shareMovieDescription">Schau dir mal diesen Film an, der könnte dir gefallen! www.app.com</string>
+    <string name="shareMovieSubject">Filmempfehlung</string>
 
     <!-- Key for logout preference in SharedPreferences  -->
     <string name="pref_logout_key" translatable="false">logout</string>
