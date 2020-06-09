@@ -28,4 +28,8 @@
         android:title="@string/pref_imdb_rating_label"
         />
 
+    <Preference
+        android:key="logout"
+        android:title="@string/pref_logout_label" />
+
 </PreferenceScreen>

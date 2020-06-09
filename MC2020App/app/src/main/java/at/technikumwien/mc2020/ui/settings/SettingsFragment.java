@@ -1,8 +1,12 @@
 package at.technikumwien.mc2020.ui.settings;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.preference.ListPreference;
@@ -11,9 +15,15 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Set;
 
 import at.technikumwien.mc2020.R;
+import at.technikumwien.mc2020.ui.main.MainActivity;
 import at.technikumwien.mc2020.ui.settings.custom.preference.number.picker.NumberPickerPreference;
 import at.technikumwien.mc2020.ui.settings.custom.preference.number.picker.NumberPickerPreferenceDialogFragment;
 import at.technikumwien.mc2020.ui.settings.custom.preference.seekbar.RangeSeekBarPreference;
@@ -43,6 +53,48 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 setPreferenceSummary(p, countSelectedValues);
             }
         }
+
+        final Preference logoutPreference = findPreference(getString(R.string.pref_logout_key));
+        logoutPreference.setEnabled(FirebaseAuth.getInstance().getCurrentUser() != null ? true : false);
+
+        DialogInterface.OnClickListener btnClick = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        };
+
+        logoutPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+
+                AlertDialog dialog = new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.logout_dialog_title)
+                        .setMessage(R.string.logout_dialog_message)
+                        .setPositiveButton(R.string.logout_dialog_ok, new DialogInterface.OnClickListener(){
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                AuthUI.getInstance()
+                                        .signOut(getContext())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                logoutPreference.setEnabled(false);
+                                                Toast toast = Toast.makeText(getContext(), R.string.logout_dialog_success, Toast.LENGTH_LONG);
+                                                toast.show();
+                                            }
+                                        });
+                            }
+                        })
+                        .setNegativeButton(R.string.logout_dialog_cancel, null)
+                        .show();
+
+                return false;
+            }
+        });
+
+
+
     }
 
     private void setPreferenceSummary(Preference preference, String value){
