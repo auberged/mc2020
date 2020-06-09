@@ -129,7 +129,16 @@ public class MainActivity extends AppCompatActivity implements
 
     private void openProfileActivity(){
         Log.d("TINDER", "share");
-        showErrorToast();
+        //showErrorToast();
+
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+        share.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareMovieSubject));
+        share.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovieDescription));
+
+        startActivity(Intent.createChooser(share, getString(R.string.shareMovieTitle)));
 
     }
 
@@ -296,6 +305,7 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void parseDataToMovies(String apiResult) throws JSONException {
         if(apiResult == null)
             return;
@@ -313,8 +323,7 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
 
-        // Make a new empty list
-        List<MovieModel> movies = new LinkedList<>();
+        // get all current card ids
         List<Integer> cardIds = getCurrentCardIds();
 
         // Generate each card and add it to the list
@@ -347,13 +356,12 @@ public class MainActivity extends AppCompatActivity implements
                 movie.addGenre(genres.getInt(j));
             }
 
-            movies.add(movie);
+            mSwipeView.addView(new MovieCard(movie, mContext, mSwipeView));
         }
 
-        // TODO in schleife rauf
-        for (MovieModel movie : movies ) {
-            mSwipeView.addView(new MovieCard(movie, mContext, mSwipeView));
-            //Log.d("TINDER", movie.id + ": " + movie.title + " - " + movie.poster_url);
+        // load more because there are too few, maybe even no cards
+        if (getCurrentCardIds().size() < 10) {
+            loadData();
         }
 
     }
