@@ -236,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements
         if(data == null){
             showErrorToast();
         } else{
+            PAGE_NUMBER++;
             try {
                 movies = parseDataToMovies(data);
                 if (movies == null)
@@ -253,7 +254,6 @@ public class MainActivity extends AppCompatActivity implements
                 e.printStackTrace();
             }
         }
-        PAGE_NUMBER++;
 
 
     }
