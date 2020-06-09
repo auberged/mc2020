@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.listeners.ItemRemovedListener;
@@ -64,6 +65,11 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Intent intent = new Intent(this, LauncherActivity.class);
+            startActivity(intent);
+        }
 
         mSwipeView = (SwipePlaceHolderView)findViewById(R.id.swipe_view);
         mSwipeView.addItemRemoveListener(new ItemRemovedListener() {
@@ -317,5 +323,15 @@ public class MainActivity extends AppCompatActivity implements
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            Intent intent = new Intent(this, LauncherActivity.class);
+            startActivity(intent);
+        }
     }
 }
