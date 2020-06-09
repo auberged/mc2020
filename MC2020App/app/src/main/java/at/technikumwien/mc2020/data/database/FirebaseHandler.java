@@ -20,6 +20,15 @@ public class FirebaseHandler {
 
     // For Singleton instantiation
     private static final Object LOCK = new Object();
+    public List<MovieModel> movies = new ArrayList<>();
+
+    public interface OnGetDataListener {
+        //this is for callbacks
+        void onSuccess(DataSnapshot dataSnapshot);
+        void onStart();
+        void onFailure();
+    }
+
 
     private FirebaseHandler(){
 
@@ -33,6 +42,8 @@ public class FirebaseHandler {
         }
         return firebaseHandler;
     }
+
+
 
     private String currentUser(){
         return FirebaseAuth.getInstance().getUid();
@@ -50,9 +61,45 @@ public class FirebaseHandler {
         FirebaseDatabase.getInstance().getReference().child(Constants.DISLIKED_MOVIES).child(userId).child(String.valueOf(movie.id)).setValue(movie.title);
     }
 
-    public List<MovieModel> getAllLikedMovies(){
+    public void getAllLikedMovies(final OnGetDataListener listener) {
+        listener.onStart();
         String userId = currentUser();
-        final List<MovieModel> movies = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child(Constants.LIKED_MOVIES).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listener.onSuccess(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("TINDER", "The liked read failed: " + databaseError.getCode());
+                listener.onFailure();
+
+            }
+        });
+    }
+
+    public void getAllDisikedMovies(final OnGetDataListener listener) {
+        listener.onStart();
+        String userId = currentUser();
+        FirebaseDatabase.getInstance().getReference().child(Constants.DISLIKED_MOVIES).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listener.onSuccess(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("TINDER", "The disliked read failed: " + databaseError.getCode());
+                listener.onFailure();
+
+            }
+        });
+    }
+
+
+    public List<MovieModel> OLDgetAllLikedMovies(){
+        String userId = currentUser();
 
         FirebaseDatabase.getInstance().getReference().child(Constants.LIKED_MOVIES).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -61,9 +108,8 @@ public class FirebaseHandler {
 
                     Log.d("TINDER", data.getKey());
 
-                    // TODO hier schmeists ihn, aber im debug sieht man dass die daten und alles da sind, alles ready im value, key abrufen geht auch
                     MovieModel m = data.getValue(MovieModel.class);
-                    //movies.add(m);
+                    movies.add(m);
                     //assert m != null;
                     Log.d("TINDER", m.title);
                 }

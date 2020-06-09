@@ -45,6 +45,10 @@ public class MovieCard {
 
     }
 
+    public MovieModel getMovieData() {
+        return movieData;
+    }
+
     @Resolve
     private void onResolved(){
         // Load here the Movie Poster into the layout

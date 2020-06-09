@@ -13,12 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.listeners.ItemRemovedListener;
@@ -27,7 +24,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,7 +35,6 @@ import java.util.Map;
 import at.technikumwien.mc2020.MovieCard;
 import at.technikumwien.mc2020.R;
 import at.technikumwien.mc2020.data.database.FirebaseHandler;
-import at.technikumwien.mc2020.ui.launcher.LauncherActivity;
 import at.technikumwien.mc2020.ui.settings.SettingsActivity;
 import at.technikumwien.mc2020.utilities.FilterCriteria;
 import at.technikumwien.mc2020.utilities.MovieModel;
@@ -51,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
     private Intent startSettingsActivity;
-    private List<MovieModel> movies;
+    private List<MovieModel> movies = new ArrayList<>();
+    private List<Integer> movies_ids = new ArrayList<>();
 
     private static final int LOADER_ID = 4012;
     private static final String DATA_EXTRA = "data";
@@ -64,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseHandler.getInstance();
 
         setContentView(R.layout.activity_main);
 
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements
                 //Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()));
 
                 Log.d("TINDER", String.valueOf(count));
-                if ( (count < 20) && (count % 6 == 0)) {
+                if ( (count <= 30) && (count % 5 == 0)) {
                     Log.d("TINDER", "load more .....");
                     loadData();
                 }
@@ -98,12 +96,13 @@ public class MainActivity extends AppCompatActivity implements
                         .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
+
         //FilterCriteria filterCriteria = FilterCriteria.getInstance (mContext);
         //Log.d("TINDER", filterCriteria.getType());
 
+        loadData();
 
         //mSwipeView.addView(new MovieCard("https://i.pinimg.com/originals/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02.jpg", mContext, mSwipeView));
-        loadData();
 
         View settingsButton = findViewById(R.id.iv_icon_settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -130,17 +129,22 @@ public class MainActivity extends AppCompatActivity implements
 
     private void openProfileActivity(){
         Log.d("TINDER", "share");
-        //showErrorToast();
-        List<MovieModel> movies;
-
-        movies = FirebaseHandler.getInstance().getAllLikedMovies();
-
-        for (MovieModel movie: movies ) {
-            Log.d("TINDER", movie.title);
-
-        }
+        showErrorToast();
 
     }
+
+    private List<Integer> getCurrentCardIds(){
+        List<Integer> card_ids = new ArrayList<>();
+
+        List<Object> views = mSwipeView.getAllResolvers();
+        for (Object mco : views) {
+            MovieCard mc = (MovieCard) mco;
+            card_ids.add(mc.getMovieData().id);
+        }
+        return card_ids;
+    }
+
+
 
 
     //    @Override
@@ -169,20 +173,63 @@ public class MainActivity extends AppCompatActivity implements
             base_url += "movie";
 
 
-        String apiUrl = NetworkUtils.buildUrl(base_url, parameter);
+        final String apiUrl = NetworkUtils.buildUrl(base_url, parameter);
+        final MainActivity callbackActivity = this;
 
-        Log.d("TINDER", apiUrl);
 
-        Bundle queryBundle = new Bundle();
-        queryBundle.putString(API_URL_EXTRA, apiUrl);
+        FirebaseHandler.getInstance().getAllLikedMovies(new FirebaseHandler.OnGetDataListener() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                movies_ids.clear();
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+                    MovieModel m = data.getValue(MovieModel.class);
+                    movies_ids.add(m.id);
+                }
 
-        LoaderManager loaderManager = getSupportLoaderManager();
-        Loader<String> apiLoader = loaderManager.getLoader(LOADER_ID);
-        if(apiLoader == null){
-            loaderManager.initLoader(LOADER_ID, queryBundle, this);
-        } else{
-            loaderManager.restartLoader(LOADER_ID, queryBundle, this);
-        }
+                FirebaseHandler.getInstance().getAllDisikedMovies(new FirebaseHandler.OnGetDataListener() {
+                    @Override
+                    public void onSuccess(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot data: dataSnapshot.getChildren()){
+                            movies_ids.add(Integer.parseInt(data.getKey()));
+                        }
+                        Log.d("TINDER", movies_ids.toString());
+                        Log.d("TINDER", apiUrl);
+
+                        Bundle queryBundle = new Bundle();
+                        queryBundle.putString(API_URL_EXTRA, apiUrl);
+
+                        LoaderManager loaderManager = getSupportLoaderManager();
+                        Loader<String> apiLoader = loaderManager.getLoader(LOADER_ID);
+                        if(apiLoader == null){
+                            loaderManager.initLoader(LOADER_ID, queryBundle, callbackActivity);
+                        } else{
+                            loaderManager.restartLoader(LOADER_ID, queryBundle, callbackActivity);
+                        }
+                    }
+
+                    @Override
+                    public void onStart() {
+                        Log.d("TINDER", "Start disliking search...");
+                    }
+
+                    @Override
+                    public void onFailure() {
+                    }
+                });
+            }
+
+            @Override
+            public void onStart() {
+                Log.d("TINDER", "Start liking search...");
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+
+
 
     }
 
@@ -212,6 +259,8 @@ public class MainActivity extends AppCompatActivity implements
 
                 // if url error
                 if (apiUrlString.isEmpty()) return null;
+                PAGE_NUMBER++;
+
 
                 try {
                     URL apiUrl = new URL(apiUrlString);
@@ -232,35 +281,24 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onLoadFinished(Loader<String> loader, String data) {
-        if(data == null){
+    public void onLoadFinished(Loader<String> loader, final String responseData) {
+        if(responseData == null){
             showErrorToast();
         } else{
-            PAGE_NUMBER++;
             try {
-                movies = parseDataToMovies(data);
-                if (movies == null)
-                {
-                    showErrorToast();
-                    return;
-                }
-
-                for (MovieModel movie : movies ) {
-                    mSwipeView.addView(new MovieCard(movie, mContext, mSwipeView));
-                    //Log.d("TINDER", movie.id + ": " + movie.title + " - " + movie.poster_url);
-                }
-
+                parseDataToMovies(responseData);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
         }
 
 
     }
 
-    public List<MovieModel> parseDataToMovies(String apiResult) throws JSONException {
+    public void parseDataToMovies(String apiResult) throws JSONException {
         if(apiResult == null)
-            return null;
+            return;
 
         // Parse to object
         JSONObject jsonObject = new JSONObject(apiResult);
@@ -272,11 +310,12 @@ public class MainActivity extends AppCompatActivity implements
 
         // If page is empty, send new request to first page
         if(moviesArray.length() == 0){
-            return null;
+            return;
         }
 
         // Make a new empty list
         List<MovieModel> movies = new LinkedList<>();
+        List<Integer> cardIds = getCurrentCardIds();
 
         // Generate each card and add it to the list
         for (int i = 0; i < moviesArray.length(); i++) {
@@ -287,10 +326,15 @@ public class MainActivity extends AppCompatActivity implements
             double vote_average = jsonCard.getDouble("vote_average");
             String releaseDate = jsonCard.getString("release_date");
 
+            // check if movie is unknown
+            if (movies_ids.contains(id) || cardIds.contains(id)) {
+                Log.d("TINDER", title + " already known");
+                continue;
+            }
+
             // check if movie has a poster url
             if (jsonCard.isNull("poster_path")) {
                 // if not, don't add it to the list
-                Log.d("TINDER", "Movie " + title + " has no poster url!");
                 continue;
 
             }
@@ -306,8 +350,11 @@ public class MainActivity extends AppCompatActivity implements
             movies.add(movie);
         }
 
-
-        return movies;
+        // TODO in schleife rauf
+        for (MovieModel movie : movies ) {
+            mSwipeView.addView(new MovieCard(movie, mContext, mSwipeView));
+            //Log.d("TINDER", movie.id + ": " + movie.title + " - " + movie.poster_url);
+        }
 
     }
 
