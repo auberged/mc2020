@@ -70,7 +70,7 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
     }
 
     private void setGenreList(@NotNull SharedPreferences pref){
-        genreList = pref.getStringSet(context.getResources().getString(R.string.pref_genre_key), null);
+        genreList = pref.getStringSet(context.getResources().getString(R.string.pref_tv_genre_key), null);
     }
 
     private void setReleaseYear(@NotNull SharedPreferences pref){
@@ -88,7 +88,7 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if(key.equals(context.getResources().getString(R.string.pref_type_key))){
             setType(sharedPreferences);
-        } else if(key.equals(context.getResources().getString(R.string.pref_genre_key))){
+        } else if(key.equals(context.getResources().getString(R.string.pref_tv_genre_key))){
             setGenreList(sharedPreferences);
         } else if(key.equals(context.getResources().getString(R.string.pref_release_year_key))){
             setReleaseYear(sharedPreferences);

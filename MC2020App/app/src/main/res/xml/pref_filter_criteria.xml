@@ -9,11 +9,9 @@
         />
 
     <MultiSelectListPreference
-        android:defaultValue="@array/pref_genre_option_values"
+        android:defaultValue="@array/pref_movie_genre_option_values"
         android:dialogTitle="@string/selectPreferredGenre"
-        android:entries="@array/pref_genre_option_labels"
-        android:entryValues="@array/pref_genre_option_values"
-        android:key="@string/pref_genre_key"
+        android:key="@string/pref_tv_genre_key"
         android:title="@string/pref_genre_label"
         />
 

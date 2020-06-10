@@ -23,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Set;
 
 import at.technikumwien.mc2020.R;
-import at.technikumwien.mc2020.ui.main.MainActivity;
 import at.technikumwien.mc2020.ui.settings.custom.preference.number.picker.NumberPickerPreference;
 import at.technikumwien.mc2020.ui.settings.custom.preference.number.picker.NumberPickerPreferenceDialogFragment;
 import at.technikumwien.mc2020.ui.settings.custom.preference.seekbar.RangeSeekBarPreference;
@@ -41,6 +40,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         PreferenceScreen prefScreen = getPreferenceScreen();
         int count = prefScreen.getPreferenceCount();
 
+        setGenreDependingOfType(sharedPreferences);
         for(int i = 0; i < count; i++){
             Preference p = prefScreen.getPreference(i);
             if(p instanceof ListPreference){
@@ -121,11 +121,24 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 setPreferenceSummary(preference, value);
             }
             if(preference instanceof  MultiSelectListPreference){
-                Set<String> selectedValues = sharedPreferences.getStringSet(preference.getKey(), null);
-                String countSelectedValues = selectedValues != null ? String.valueOf(selectedValues.size()) : "";
-                setPreferenceSummary(preference, countSelectedValues);
+                setSummaryOfMulitSelectListPreference(key, sharedPreferences, (MultiSelectListPreference) preference);
             }
         }
+
+        // If type has been changed genre list has to be updated
+        if(key.equals(getContext().getResources().getString(R.string.pref_type_key))){
+            setGenreDependingOfType(sharedPreferences);
+        }
+    }
+
+    private void setSummaryOfMulitSelectListPreference(String key, SharedPreferences sharedPreferences, MultiSelectListPreference preference){
+        Set<String> selectedValues = sharedPreferences.getStringSet(key, null);
+        if(selectedValues != null) {
+            preference.setValues(selectedValues);
+        }
+
+        String countSelectedValues = selectedValues != null ? String.valueOf(selectedValues.size()) : "";
+        setPreferenceSummary(preference, countSelectedValues);
     }
 
     @Override
@@ -154,6 +167,31 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             dialogFragment.show(this.getFragmentManager(), TAG);
         } else{
             super.onDisplayPreferenceDialog(preference);
+        }
+    }
+
+    private void setGenreDependingOfType(SharedPreferences pref){
+        String type = pref.getString(getContext().getResources().getString(R.string.pref_type_key), getContext().getResources().getString(R.string.pref_type_movies_value));
+        MultiSelectListPreference preference = (MultiSelectListPreference) findPreference(getContext().getResources().getString(R.string.pref_tv_genre_key));
+        if(preference == null){
+            preference = (MultiSelectListPreference) findPreference(getContext().getResources().getString(R.string.pref_movie_genre_key));
+        }
+
+        String key = "";
+        if(type.equals(getContext().getResources().getString(R.string.pref_type_movies_value))){
+            key = getString(R.string.pref_movie_genre_key);
+            preference.setKey(key);
+            preference.setEntries(R.array.pref_movie_genre_option_labels);
+            preference.setEntryValues(R.array.pref_movie_genre_option_values);
+
+            setSummaryOfMulitSelectListPreference(key, pref, preference);
+        } else if(type.equals(getContext().getResources().getString(R.string.pref_type_series_value))){
+            key = getString(R.string.pref_tv_genre_key);
+            preference.setKey(key);
+            preference.setEntries(R.array.pref_tv_genre_option_labels);
+            preference.setEntryValues(R.array.pref_tv_genre_option_values);
+
+            setSummaryOfMulitSelectListPreference(key, pref, preference);
         }
     }
 }
