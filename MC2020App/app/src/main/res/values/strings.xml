@@ -17,20 +17,81 @@
 
     <!-- Label for the genre preference  -->
     <string name="pref_genre_label">Genre</string>
+    <!-- Key for the tv genre preference  -->
+    <string name="pref_tv_genre_key" translatable="false">tv_genre</string>
+
+    <!--region TV Genre labels and values-->
     <!-- Label for the genre sitcom preference  -->
-    <string name="pref_genre_label_sitcom">Sitcom</string>
+    <string name="pref_tv_genre_label_comedy">Komödie</string>
     <!-- Label for the genre horror preference  -->
-    <string name="pref_genre_label_horror">Horror</string>
+    <string name="pref_tv_genre_label_mystery">Mystery</string>
     <!-- Label for the genre sports documentary preference  -->
-    <string name="pref_genre_label_sports_documentary">Sports-Dokumentation</string>
-    <!-- Key for the genre preference  -->
-    <string name="pref_genre_key" translatable="false">genre</string>
+    <string name="pref_tv_genre_label_documentary">Dokumentation</string>
+    <!-- Label for the genre sports action & adventure preference  -->
+    <string name="pref_tv_genre_label_action_adventure">Action &amp; Adventure</string>
+    <!-- Label for the genre sports animation preference  -->
+    <string name="pref_tv_genre_label_animation">Animation</string>
+    <!-- Label for the genre sports drama preference  -->
+    <string name="pref_tv_genre_label_drama">Drama</string>
+    <!-- Label for the genre sports reality preference  -->
+    <string name="pref_tv_genre_label_reality">Reality</string>
+    <!-- Label for the genre sports western preference  -->
+    <string name="pref_tv_genre_label_western">Western</string>
     <!-- Value in SharedPreferences for the genre sitcom preference  -->
-    <string name="pref_genre_sitcom_value" translatable="false">3903</string>
+    <string name="pref_tv_genre_comedy_value" translatable="false">35</string>
     <!-- Value in SharedPreferences for the genre horror preference  -->
-    <string name="pref_genre_horror_value" translatable="false">8711</string>
+    <string name="pref_tv_genre_mystery_value" translatable="false">9648</string>
+    <!-- Value in SharedPreferences for the genre documentary preference  -->
+    <string name="pref_tv_genre_documentary_value" translatable="false">99</string>
+    <!-- Value in SharedPreferences for the genre action adventure preference  -->
+    <string name="pref_tv_genre_action_adventure_value" translatable="false">10759</string>
+    <!-- Value in SharedPreferences for the genre documentary preference  -->
+    <string name="pref_tv_genre_animation_value" translatable="false">16</string>
+    <!-- Value in SharedPreferences for the genre drama preference  -->
+    <string name="pref_tv_genre_drama_value" translatable="false">18</string>
+    <!-- Value in SharedPreferences for the genre reality preference  -->
+    <string name="pref_tv_genre_reality_value" translatable="false">10764</string>
+    <!-- Value in SharedPreferences for the genre western preference  -->
+    <string name="pref_tv_genre_western_value" translatable="false">37</string>
+    <!--endregion-->
+
+    <!--region Film Genre labels and values-->
+    <!-- Key for the tv genre preference  -->
+    <string name="pref_movie_genre_key" translatable="false">movie_genre</string>
+    <!-- Label for the film genre comedy preference  -->
+    <string name="pref_movie_genre_label_comedy">Komödie</string>
+    <!-- Label for the genre horror preference  -->
+    <string name="pref_movie_genre_label_horror">Horror</string>
+    <!-- Label for the genre sports documentary preference  -->
+    <string name="pref_movie_genre_label_documentary">Dokumentation</string>
+    <!-- Label for the genre action preference  -->
+    <string name="pref_movie_genre_label_action">Action</string>
+    <!-- Label for the genre adventure preference  -->
+    <string name="pref_movie_genre_label_adventure">Abenteuer</string>
+    <!-- Label for the genre animation preference  -->
+    <string name="pref_movie_genre_label_animation">Animation</string>
+    <!-- Label for the genre drama preference  -->
+    <string name="pref_movie_genre_label_drama">Drama</string>
+    <!-- Label for the genre western preference  -->
+    <string name="pref_movie_genre_label_western">Western</string>
+    <!-- Value in SharedPreferences for the genre sitcom preference  -->
+    <string name="pref_movie_genre_comedy_value" translatable="false">35</string>
+    <!-- Value in SharedPreferences for the genre horror preference  -->
+    <string name="pref_movie_genre_horror_value" translatable="false">27</string>
     <!-- Value in SharedPreferences for the genre sports documentary preference  -->
-    <string name="pref_genre_sports_documentary_value" translatable="false">180</string>
+    <string name="pref_movie_genre_documentary_value" translatable="false">99</string>
+    <!-- Value in SharedPreferences for the genre action preference  -->
+    <string name="pref_movie_genre_action_value" translatable="false">28</string>
+    <!-- Value in SharedPreferences for the genre adventure preference  -->
+    <string name="pref_movie_genre_adventure_value" translatable="false">12</string>
+    <!-- Value in SharedPreferences for the genre animation preference  -->
+    <string name="pref_movie_genre_animation_value" translatable="false">16</string>
+    <!-- Value in SharedPreferences for the genre drama preference  -->
+    <string name="pref_movie_genre_drama_value" translatable="false">18</string>
+    <!-- Value in SharedPreferences for the genre western preference  -->
+    <string name="pref_movie_genre_western_value" translatable="false">37</string>
+    <!--endregion-->
+
     <!-- Value in SharedPreferences for the dialog in genre preference  -->
     <string name="selectPreferredGenre">Gewünschte Genre auswählen</string>
     <string name="genreCountSelectedMessage">Genre ausgewählt</string>

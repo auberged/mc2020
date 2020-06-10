@@ -10,16 +10,48 @@
         <item>@string/pref_type_series_value</item>
     </array>
 
-    <array name="pref_genre_option_labels">
-        <item>@string/pref_genre_label_sitcom</item>
-        <item>@string/pref_genre_label_horror</item>
-        <item>@string/pref_genre_label_sports_documentary</item>
+    <array name="pref_tv_genre_option_labels">
+        <item>@string/pref_tv_genre_label_action_adventure</item>
+        <item>@string/pref_tv_genre_label_animation</item>
+        <item>@string/pref_tv_genre_label_documentary</item>
+        <item>@string/pref_tv_genre_label_drama</item>
+        <item>@string/pref_tv_genre_label_comedy</item>
+        <item>@string/pref_tv_genre_label_mystery</item>
+        <item>@string/pref_tv_genre_label_reality</item>
+        <item>@string/pref_tv_genre_label_western</item>
     </array>
 
-    <array name="pref_genre_option_values">
-        <item>@string/pref_genre_sitcom_value</item>
-        <item>@string/pref_genre_horror_value</item>
-        <item>@string/pref_genre_sports_documentary_value</item>
+    <array name="pref_tv_genre_option_values">
+        <item>@string/pref_tv_genre_action_adventure_value</item>
+        <item>@string/pref_tv_genre_animation_value</item>
+        <item>@string/pref_tv_genre_documentary_value</item>
+        <item>@string/pref_tv_genre_drama_value</item>
+        <item>@string/pref_tv_genre_comedy_value</item>
+        <item>@string/pref_tv_genre_mystery_value</item>
+        <item>@string/pref_tv_genre_reality_value</item>
+        <item>@string/pref_tv_genre_western_value</item>
+    </array>
+
+    <array name="pref_movie_genre_option_labels">
+        <item>@string/pref_movie_genre_label_adventure</item>
+        <item>@string/pref_movie_genre_label_action</item>
+        <item>@string/pref_movie_genre_label_animation</item>
+        <item>@string/pref_movie_genre_label_drama</item>
+        <item>@string/pref_movie_genre_label_horror</item>
+        <item>@string/pref_movie_genre_label_documentary</item>
+        <item>@string/pref_movie_genre_label_comedy</item>
+        <item>@string/pref_movie_genre_label_western</item>
+    </array>
+
+    <array name="pref_movie_genre_option_values">
+        <item>@string/pref_movie_genre_adventure_value</item>
+        <item>@string/pref_movie_genre_action_value</item>
+        <item>@string/pref_movie_genre_animation_value</item>
+        <item>@string/pref_movie_genre_drama_value</item>
+        <item>@string/pref_movie_genre_horror_value</item>
+        <item>@string/pref_movie_genre_documentary_value</item>
+        <item>@string/pref_movie_genre_comedy_value</item>
+        <item>@string/pref_movie_genre_western_value</item>
     </array>
 
 </resources>
