@@ -57,8 +57,7 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.mindorks:placeholderview:0.7.1'
-    implementation 'com.android.support:cardview-v7:25.3.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.google.code.gson:gson:2.8.5'
 
@@ -73,7 +72,10 @@ dependencies {
     // Add the Firebase SDK for Firebase Database
     implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
-    
+    implementation 'com.mindorks.android:placeholderview:1.0.3' // replaced dependecy 'com.mindorks:placeholderview:0.7.1'
+    annotationProcessor 'com.mindorks.android:placeholderview-compiler:1.0.3'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
     testImplementation 'org.json:json:20200518'
 
 }
