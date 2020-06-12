@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void openProfileActivity(){
         Log.d("TINDER", "share");
         //showErrorToast();
@@ -146,6 +147,8 @@ public class MainActivity extends AppCompatActivity implements
         share.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovieDescription));
 
         startActivity(Intent.createChooser(share, getString(R.string.shareMovieTitle)));
+
+        Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()));
 
     }
 
@@ -297,12 +300,13 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onLoadFinished(Loader<String> loader, final String responseData) {
         if(responseData == null){
-            showErrorToast();
+            showErrorToast(getString(R.string.error_msg_api_error));
         } else{
             try {
                 parseDataToMovies(responseData);
             } catch (JSONException e) {
                 e.printStackTrace();
+                showErrorToast(getString(R.string.error_msg_parsing_error));
             }
 
         }
@@ -332,15 +336,37 @@ public class MainActivity extends AppCompatActivity implements
         // Generate each card and add it to the list
         for (int i = 0; i < moviesArray.length(); i++) {
             JSONObject jsonCard = moviesArray.getJSONObject(i);
+
+            String title, releaseDate = null;
+
+            if (FilterCriteria.getInstance(mContext).getType().equals("series")) {
+                // check if movie has a name
+                if (jsonCard.isNull("name")) {
+                    // if not, don't add it to the list
+                    continue;
+                }
+
+                title = jsonCard.getString("name");
+                releaseDate = jsonCard.getString("first_air_date");
+            }
+            else {
+                if (jsonCard.isNull("title")) {
+                    // if not, don't add it to the list
+                    continue;
+                }
+
+                title = jsonCard.getString("title");
+                releaseDate = jsonCard.getString("release_date");
+            }
+
+
             int id = jsonCard.getInt("id");
-            String title = jsonCard.getString("title");
             String description = jsonCard.getString("overview");
             double vote_average = jsonCard.getDouble("vote_average");
-            String releaseDate = jsonCard.getString("release_date");
 
             // check if movie is unknown
             if (movies_ids.contains(id) || cardIds.contains(id)) {
-                Log.d("TINDER", title + " already known");
+                //Log.d("TINDER", title + " already known");
                 continue;
             }
 
@@ -377,16 +403,17 @@ public class MainActivity extends AppCompatActivity implements
          */
     }
 
-    private void showErrorToast() {
+    private void showErrorToast(String error_msg) {
         //Context context = getApplicationContext();
         Context context = mContext;
-        CharSequence text = "ERRR";//getString(R.string.error_message);
+        CharSequence text = error_msg;
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onResume() {
         super.onResume();
@@ -394,6 +421,11 @@ public class MainActivity extends AppCompatActivity implements
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent intent = new Intent(this, LauncherActivity.class);
             startActivity(intent);
+        }
+
+        if (FilterCriteria.getInstance(mContext).getChangedState()) {
+            mSwipeView.removeAllViews();
+            loadData();
         }
     }
 }

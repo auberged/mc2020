@@ -26,8 +26,12 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
 
     private int imdbMaxRating;
 
+    private boolean changedState;
+
     private FilterCriteria(Context context){
         this.context = context;
+        this.changedState = false;
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         setType(sharedPreferences);
         setGenreList(sharedPreferences);
@@ -65,12 +69,29 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
         return imdbMaxRating;
     }
 
+    public boolean getChangedState() {
+        if (changedState) {
+            changedState = false;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     private void setType(@NotNull SharedPreferences pref){
         type = pref.getString(context.getResources().getString(R.string.pref_type_key), context.getResources().getString(R.string.pref_type_movies_value));
+        setGenreList(pref);
     }
 
     private void setGenreList(@NotNull SharedPreferences pref){
-        genreList = pref.getStringSet(context.getResources().getString(R.string.pref_tv_genre_key), null);
+        if (this.type.equals("series"))
+        {
+            genreList = pref.getStringSet(context.getResources().getString(R.string.pref_tv_genre_key), null); //pref_movie_genre_key pref_tv_genre_key
+        } else
+        {
+            genreList = pref.getStringSet(context.getResources().getString(R.string.pref_movie_genre_key), null); //pref_movie_genre_key pref_tv_genre_key
+        }
     }
 
     private void setReleaseYear(@NotNull SharedPreferences pref){
@@ -84,6 +105,12 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
         imdbMaxRating = Integer.valueOf(values[1]);
     }
 
+    private void setChangedState(boolean state){
+        changedState = state;
+    }
+
+
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if(key.equals(context.getResources().getString(R.string.pref_type_key))){
@@ -95,5 +122,6 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
         } else if(key.equals(context.getResources().getString(R.string.pref_imdb_rating_key))){
             setImdbRating(sharedPreferences);
         }
+        setChangedState(true);
     }
 }

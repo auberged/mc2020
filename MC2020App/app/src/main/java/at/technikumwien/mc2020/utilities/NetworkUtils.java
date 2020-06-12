@@ -45,17 +45,11 @@ public class NetworkUtils {
     }
 
     public static String getResponseFromHttpUrl(URL url) throws IOException {
-        Log.d("TOAST", url.toString());
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
-            Log.d("TOAST", "here_A");
             InputStream in = urlConnection.getInputStream();
-            Log.d("TOAST", "here_B");
-
             Scanner scanner = new Scanner(in);
             scanner.useDelimiter("\\A"); // for start of string
-
-            Log.d("TOAST", "here_C");
             boolean hasInput = scanner.hasNext();
             if (hasInput) {
                 return scanner.next();

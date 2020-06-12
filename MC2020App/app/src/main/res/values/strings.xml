@@ -134,5 +134,7 @@
     <string name="logout_dialog_ok">Ok</string>
     <string name="logout_dialog_cancel">Abbrechen</string>
     <string name="logout_dialog_success">Erfolgreich abgemeldet</string>
+    <string name="error_msg_parsing_error">Error: Fehlerhafte Daten</string>
+    <string name="error_msg_api_error">Error: Keine Daten erhalten</string>
 
 </resources>
