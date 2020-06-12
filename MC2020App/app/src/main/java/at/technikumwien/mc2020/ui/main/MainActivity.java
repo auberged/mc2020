@@ -78,12 +78,6 @@ public class MainActivity extends AppCompatActivity implements
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onItemRemoved(int count) {
-                //Log.d("TINDER", FilterCriteria.getInstance(mContext).getType() );
-                //Log.d("TINDER", String.valueOf(FilterCriteria.getInstance(mContext).getImdbMaxRating()));
-                //Log.d("TINDER", String.valueOf(FilterCriteria.getInstance(mContext).getImdbMinRating()));
-                //Log.d("TINDER", String.valueOf(FilterCriteria.getInstance(mContext).getReleaseYear()));
-                //Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()));
-
                 Log.d("TINDER", String.valueOf(count));
                 if ( (count <= 30) && (count % 5 == 0) || (count <= 50) && (count % 10 == 0)) {
                     Log.d("TINDER", "load more .....");
@@ -182,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements
         parameter.put("year", String.valueOf(FilterCriteria.getInstance(mContext).getReleaseYear()));
         parameter.put("vote_average.lte", String.valueOf(FilterCriteria.getInstance(mContext).getImdbMaxRating()));
         parameter.put("vote_average.gte", String.valueOf(FilterCriteria.getInstance(mContext).getImdbMinRating()));
-        //parameter.put("with_genres", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()) );
+        parameter.put("with_genres", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()) );
         parameter.put("page", String.valueOf(PAGE_NUMBER));
 
         String base_url = "https://api.themoviedb.org/3/discover/";
@@ -211,9 +205,8 @@ public class MainActivity extends AppCompatActivity implements
                         for(DataSnapshot data: dataSnapshot.getChildren()){
                             movies_ids.add(Integer.parseInt(data.getKey()));
                         }
-                        Log.d("TINDER", movies_ids.toString());
-                        Log.d("TINDER", apiUrl);
 
+                        Log.d("TINDER", apiUrl);
                         Bundle queryBundle = new Bundle();
                         queryBundle.putString(API_URL_EXTRA, apiUrl);
 
@@ -228,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements
 
                     @Override
                     public void onStart() {
-                        Log.d("TINDER", "Start disliking search...");
+                        //Log.d("TINDER", "Start disliking search...");
                     }
 
                     @Override
@@ -239,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements
 
             @Override
             public void onStart() {
-                Log.d("TINDER", "Start liking search...");
+                //Log.d("TINDER", "Start liking search...");
             }
 
             @Override
