@@ -2,6 +2,8 @@ package at.technikumwien.mc2020.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
 import androidx.preference.PreferenceManager;
 import org.jetbrains.annotations.NotNull;
 import java.util.Set;
@@ -85,6 +87,7 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
     }
 
     private void setGenreList(@NotNull SharedPreferences pref){
+        Log.d("TINDER", "Type is: " + this.type);
         if (this.type.equals("series"))
         {
             genreList = pref.getStringSet(context.getResources().getString(R.string.pref_tv_genre_key), null); //pref_movie_genre_key pref_tv_genre_key

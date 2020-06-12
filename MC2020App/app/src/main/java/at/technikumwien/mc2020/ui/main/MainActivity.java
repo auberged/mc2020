@@ -176,7 +176,8 @@ public class MainActivity extends AppCompatActivity implements
         parameter.put("year", String.valueOf(FilterCriteria.getInstance(mContext).getReleaseYear()));
         parameter.put("vote_average.lte", String.valueOf(FilterCriteria.getInstance(mContext).getImdbMaxRating()));
         parameter.put("vote_average.gte", String.valueOf(FilterCriteria.getInstance(mContext).getImdbMinRating()));
-        parameter.put("with_genres", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()) );
+        // TODO weil genre ids nur bei filmen gehen
+        // parameter.put("with_genres", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()) );
         parameter.put("page", String.valueOf(PAGE_NUMBER));
 
         String base_url = "https://api.themoviedb.org/3/discover/";
