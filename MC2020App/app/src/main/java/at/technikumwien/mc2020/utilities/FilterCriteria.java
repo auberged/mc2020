@@ -6,7 +6,6 @@ import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 import org.jetbrains.annotations.NotNull;
-import java.util.Set;
 
 import at.technikumwien.mc2020.R;
 
@@ -20,7 +19,7 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
 
     private String type;
 
-    private Set<String> genreList;
+    private String genre;
 
     private int releaseYear;
 
@@ -36,7 +35,7 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         setType(sharedPreferences);
-        setGenreList(sharedPreferences);
+        setGenre(sharedPreferences);
         setReleaseYear(sharedPreferences);
         setImdbRating(sharedPreferences);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
@@ -55,8 +54,8 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
         return type;
     }
 
-    public Set<String> getGenreList() {
-        return genreList;
+    public String getGenre() {
+        return genre;
     }
 
     public int getReleaseYear() {
@@ -83,17 +82,19 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
 
     private void setType(@NotNull SharedPreferences pref){
         type = pref.getString(context.getResources().getString(R.string.pref_type_key), context.getResources().getString(R.string.pref_type_movies_value));
-        setGenreList(pref);
+
+        setGenre(pref);
     }
 
-    private void setGenreList(@NotNull SharedPreferences pref){
-        Log.d("TINDER", "Type is: " + this.type);
-        if (this.type.equals("series"))
-        {
-            genreList = pref.getStringSet(context.getResources().getString(R.string.pref_tv_genre_key), null); //pref_movie_genre_key pref_tv_genre_key
-        } else
-        {
-            genreList = pref.getStringSet(context.getResources().getString(R.string.pref_movie_genre_key), null); //pref_movie_genre_key pref_tv_genre_key
+    protected void setGenre(@NotNull SharedPreferences pref){
+        String type = pref.getString(context.getResources().getString(R.string.pref_type_key), context.getResources().getString(R.string.pref_type_movies_value));
+
+        if(type.equals(context.getResources().getString(R.string.pref_type_movies_value))){
+            genre = pref.getString(context.getResources().getString(R.string.pref_movie_genre_key), context.getResources().getString(R.string.pref_movie_genre_default_value));
+        }
+
+        if(type.equals(context.getResources().getString(R.string.pref_type_series_value))){
+            genre = pref.getString(context.getResources().getString(R.string.pref_tv_genre_key), context.getResources().getString(R.string.pref_tv_genre_default_value));
         }
     }
 
@@ -112,14 +113,12 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
         changedState = state;
     }
 
-
-
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if(key.equals(context.getResources().getString(R.string.pref_type_key))){
             setType(sharedPreferences);
         } else if(key.equals(context.getResources().getString(R.string.pref_tv_genre_key))){
-            setGenreList(sharedPreferences);
+            setGenre(sharedPreferences);
         } else if(key.equals(context.getResources().getString(R.string.pref_release_year_key))){
             setReleaseYear(sharedPreferences);
         } else if(key.equals(context.getResources().getString(R.string.pref_imdb_rating_key))){
