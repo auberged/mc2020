@@ -36,7 +36,9 @@ import java.util.Map;
 import at.technikumwien.mc2020.MovieCard;
 import at.technikumwien.mc2020.R;
 import at.technikumwien.mc2020.data.database.FirebaseHandler;
+import at.technikumwien.mc2020.ui.detail.DetailActivity;
 import at.technikumwien.mc2020.ui.launcher.LauncherActivity;
+import at.technikumwien.mc2020.ui.list.ListActivity;
 import at.technikumwien.mc2020.ui.settings.SettingsActivity;
 import at.technikumwien.mc2020.utilities.FilterCriteria;
 import at.technikumwien.mc2020.utilities.MovieModel;
@@ -47,7 +49,9 @@ public class MainActivity extends AppCompatActivity implements
 
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
+    private Intent startListActivity;
     private Intent startSettingsActivity;
+    private Intent startDetailActivity;
     private List<MovieModel> movies = new ArrayList<>();
     private List<Integer> movies_ids = new ArrayList<>();
 
@@ -98,12 +102,34 @@ public class MainActivity extends AppCompatActivity implements
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
 
-        //FilterCriteria filterCriteria = FilterCriteria.getInstance (mContext);
-        //Log.d("TINDER", filterCriteria.getType());
-
         loadData();
 
-        //mSwipeView.addView(new MovieCard("https://i.pinimg.com/originals/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02.jpg", mContext, mSwipeView));
+
+        View dislikeButton = findViewById(R.id.ib_dislike);
+        dislikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSwipeView.doSwipe(false);
+            }
+        });
+
+        View moreButton = findViewById(R.id.ib_more);
+        moreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDetailActivity();
+            }
+        });
+
+        View likeButton = findViewById(R.id.ib_like);
+        likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSwipeView.doSwipe(true);
+            }
+        });
+
+
 
         View settingsButton = findViewById(R.id.iv_icon_settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +148,11 @@ public class MainActivity extends AppCompatActivity implements
         });
     }
 
+    private void openDetailActivity(){
+        startDetailActivity = new Intent(this, DetailActivity.class);
+        startActivity(startDetailActivity);
+    }
+
     private void openSettingsActivity(){
         startSettingsActivity = new Intent(this, SettingsActivity.class);
         startActivity(startSettingsActivity);
@@ -130,6 +161,14 @@ public class MainActivity extends AppCompatActivity implements
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void openProfileActivity(){
+        Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenre()));
+
+        startListActivity = new Intent(this, ListActivity.class);
+        startActivity(startListActivity);
+
+
+        /*
+
         Log.d("TINDER", "share");
         //showErrorToast();
 
@@ -141,8 +180,7 @@ public class MainActivity extends AppCompatActivity implements
         share.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovieDescription));
 
         startActivity(Intent.createChooser(share, getString(R.string.shareMovieTitle)));
-
-        Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenre()));
+        */
 
     }
 

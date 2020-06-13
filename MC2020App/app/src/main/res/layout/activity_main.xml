@@ -67,7 +67,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/swipe_view"
         app:layout_constraintEnd_toEndOf="@+id/swipe_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/iv_more" />
+        app:srcCompat="@drawable/iv_more"
+        android:elevation="2dp"
+        />
 
     <ImageButton
         android:id="@+id/ib_like"
@@ -81,7 +83,9 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ib_more"
-        app:srcCompat="@drawable/iv_like" />
+        app:srcCompat="@drawable/iv_like"
+        android:elevation="2dp"
+        />
 
     <ImageButton
         android:id="@+id/ib_dislike"
@@ -95,7 +99,9 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ib_more"
-        app:srcCompat="@drawable/iv_dislike" />
+        app:srcCompat="@drawable/iv_dislike"
+        android:elevation="2dp"
+        />
 
     <com.mindorks.placeholderview.SwipePlaceHolderView
         android:id="@+id/swipe_view"

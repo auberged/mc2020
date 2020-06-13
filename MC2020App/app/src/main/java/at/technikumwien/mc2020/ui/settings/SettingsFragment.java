@@ -177,7 +177,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             preference.setKey(key);
             preference.setEntries(R.array.pref_movie_genre_option_labels);
             preference.setEntryValues(R.array.pref_movie_genre_option_values);
-            String value = pref.getString(key, getString(R.string.pref_tv_genre_default_value));
+            String value = pref.getString(key, getString(R.string.pref_movie_genre_default_value));
             preference.setValue(value);
             setPreferenceSummary(preference, value);
         } else if(type.equals(getContext().getResources().getString(R.string.pref_type_series_value))){
@@ -185,7 +185,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             preference.setKey(key);
             preference.setEntries(R.array.pref_tv_genre_option_labels);
             preference.setEntryValues(R.array.pref_tv_genre_option_values);
-            String value = pref.getString(key, getString(R.string.pref_movie_genre_default_value));
+            String value = pref.getString(key, getString(R.string.pref_tv_genre_default_value));
             preference.setValue(value);
             setPreferenceSummary(preference, value);
         }
