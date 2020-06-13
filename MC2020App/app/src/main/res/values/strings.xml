@@ -138,6 +138,8 @@
     <string name="logout_dialog_ok">Ok</string>
     <string name="logout_dialog_cancel">Abbrechen</string>
     <string name="logout_dialog_success">Erfolgreich abgemeldet</string>
+    <string name="reached_end_of_favourite_movie_list">Keine weiteren Filme verfügbar</string>
+    <string name="error_loading_favourite_movies">Fehler beim Laden der Filme aufgetreten</string>
     <string name="error_msg_parsing_error">Error: Fehlerhafte Daten</string>
     <string name="error_msg_api_error">Error: Keine Daten erhalten</string>
 

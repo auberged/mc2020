@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements
 
         startActivity(Intent.createChooser(share, getString(R.string.shareMovieTitle)));
 
-        Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenreList()));
+        Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenre()));
 
     }
 

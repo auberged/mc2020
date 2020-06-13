@@ -60,7 +60,7 @@ public class MovieCard {
     }
 
     @SwipeOut
-    private void onSwipedOut(){
+    public void onSwipedOut(){
         FirebaseHandler.getInstance().saveDislikedMovie(movieData);
         Log.d("TINDER", "Disliked movie: " + movieData.title +  " " + movieData.poster_url);
     }
@@ -71,18 +71,18 @@ public class MovieCard {
     }
 
     @SwipeIn
-    private void onSwipeIn(){
+    public void onSwipeIn(){
         FirebaseHandler.getInstance().saveLikedMovie(movieData);
         Log.d("TINDER", "Liked movie: " + movieData.title +  " " + movieData.poster_url);
     }
 
     @SwipeInState
-    private void onSwipeInState(){
+    public void onSwipeInState(){
         //Log.d("TINDER", "onSwipeInState");
     }
 
     @SwipeOutState
-    private void onSwipeOutState(){
+    public void onSwipeOutState(){
         //Log.d("TINDER", "onSwipeOutState");
     }
 }
