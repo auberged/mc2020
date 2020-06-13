@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "561393155966-u38osk9fjf8sblpn0c62tm4qek3djrkd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "at.technikumwien.mc2020",
+            "certificate_hash": "261bb2b1562ee92a17f276f4ffb387129355121c"
+          }
+        },
+        {
+          "client_id": "561393155966-o367rvihk67dsu4e3aki82queuf9nc7l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "at.technikumwien.mc2020",
+            "certificate_hash": "d723ee113481b5749bbcfd2fa1f8ccf6852295f7"
+          }
+        },
+        {
           "client_id": "561393155966-56q3v68ah6k32scj5igjcefcuma8r2m6.apps.googleusercontent.com",
           "client_type": 3
         }

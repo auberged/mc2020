@@ -125,6 +125,9 @@
 
     <!-- Label for release year button in release year dialog  -->
     <string name="imdb_rating_dialog_title">IMDB Bewertung festlegen:</string>
+    <string name="shareMovieTitle">Teile mit deinen Freunden!</string>
+    <string name="shareMovieDescription">Schau dir mal diesen Film an, der könnte dir gefallen! www.app.com</string>
+    <string name="shareMovieSubject">Filmempfehlung</string>
 
     <!-- Key for logout preference in SharedPreferences  -->
     <string name="pref_logout_key" translatable="false">logout</string>
@@ -135,7 +138,7 @@
     <string name="logout_dialog_ok">Ok</string>
     <string name="logout_dialog_cancel">Abbrechen</string>
     <string name="logout_dialog_success">Erfolgreich abgemeldet</string>
-    <string name="reached_end_of_favourite_movie_list">Keine weiteren Filme verfügbar</string>
-    <string name="error_loading_favourite_movies">Fehler beim Laden der Filme aufgetreten</string>
+    <string name="error_msg_parsing_error">Error: Fehlerhafte Daten</string>
+    <string name="error_msg_api_error">Error: Keine Daten erhalten</string>
 
 </resources>

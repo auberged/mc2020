@@ -2,6 +2,8 @@ package at.technikumwien.mc2020.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
 import androidx.preference.PreferenceManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,8 +27,12 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
 
     private int imdbMaxRating;
 
+    private boolean changedState;
+
     private FilterCriteria(Context context){
         this.context = context;
+        this.changedState = false;
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         setType(sharedPreferences);
         setGenre(sharedPreferences);
@@ -64,6 +70,16 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
         return imdbMaxRating;
     }
 
+    public boolean getChangedState() {
+        if (changedState) {
+            changedState = false;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     private void setType(@NotNull SharedPreferences pref){
         type = pref.getString(context.getResources().getString(R.string.pref_type_key), context.getResources().getString(R.string.pref_type_movies_value));
 
@@ -80,7 +96,7 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
         if(type.equals(context.getResources().getString(R.string.pref_type_series_value))){
             genre = pref.getString(context.getResources().getString(R.string.pref_tv_genre_key), context.getResources().getString(R.string.pref_tv_genre_default_value));
         }
-}
+    }
 
     private void setReleaseYear(@NotNull SharedPreferences pref){
         releaseYear = pref.getInt(context.getResources().getString(R.string.pref_release_year_key), Integer.parseInt(context.getResources().getString(R.string.pref_release_year_default)));
@@ -91,6 +107,10 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
         String[] values = imdbRating.split("-");
         imdbMinRating = Integer.valueOf(values[0]);
         imdbMaxRating = Integer.valueOf(values[1]);
+    }
+
+    private void setChangedState(boolean state){
+        changedState = state;
     }
 
     @Override
@@ -104,5 +124,6 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
         } else if(key.equals(context.getResources().getString(R.string.pref_imdb_rating_key))){
             setImdbRating(sharedPreferences);
         }
+        setChangedState(true);
     }
 }

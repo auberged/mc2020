@@ -5,6 +5,8 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Animate;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -17,6 +19,8 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeInState;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
 
+
+import at.technikumwien.mc2020.data.database.Constants;
 import at.technikumwien.mc2020.data.database.FirebaseHandler;
 import at.technikumwien.mc2020.utilities.MovieModel;
 
@@ -43,15 +47,10 @@ public class MovieCard {
         this.movieData = movie;
         this.mContext = mContext;
         this.mSwipeView = mSwipeView;
-
     }
 
     public MovieModel getMovieData() {
         return movieData;
-    }
-
-    public void awesomeButtonClicked() {
-        Log.d("TINDER", "more details");
     }
 
     @Resolve
@@ -61,10 +60,9 @@ public class MovieCard {
     }
 
     @SwipeOut
-    public void onSwipedOut() {
-        Log.d("TINDER", "Disliked movie: " + movieData.title + " " + movieData.poster_url);
+    private void onSwipedOut(){
         FirebaseHandler.getInstance().saveDislikedMovie(movieData);
-        //FirebaseDatabase.getInstance().getReference().child(Constants.DISLIKED_MOVIES).child(FirebaseAuth.getInstance().getUid()).child(String.valueOf(movieData.id)).setValue(movieData.title);
+        Log.d("TINDER", "Disliked movie: " + movieData.title +  " " + movieData.poster_url);
     }
 
     @SwipeCancelState
@@ -73,20 +71,18 @@ public class MovieCard {
     }
 
     @SwipeIn
-    public void onSwipeIn() {
-
-        Log.d("TINDER", "Liked movie: " + movieData.title + " " + movieData.poster_url);
+    private void onSwipeIn(){
         FirebaseHandler.getInstance().saveLikedMovie(movieData);
-
+        Log.d("TINDER", "Liked movie: " + movieData.title +  " " + movieData.poster_url);
     }
 
     @SwipeInState
-    public void onSwipeInState() {
-        Log.d("TINDER", "onSwipeInState");
+    private void onSwipeInState(){
+        //Log.d("TINDER", "onSwipeInState");
     }
 
     @SwipeOutState
-    public void onSwipeOutState() {
-        Log.d("TINDER", "onSwipeOutState");
+    private void onSwipeOutState(){
+        //Log.d("TINDER", "onSwipeOutState");
     }
 }

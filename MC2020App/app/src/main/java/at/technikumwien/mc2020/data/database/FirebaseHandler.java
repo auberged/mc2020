@@ -1,5 +1,7 @@
 package at.technikumwien.mc2020.data.database;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +20,15 @@ public class FirebaseHandler {
 
     // For Singleton instantiation
     private static final Object LOCK = new Object();
+    public List<MovieModel> movies = new ArrayList<>();
+
+    public interface OnGetDataListener {
+        //this is for callbacks
+        void onSuccess(DataSnapshot dataSnapshot);
+        void onStart();
+        void onFailure();
+    }
+
 
     private FirebaseHandler(){
 
@@ -31,6 +42,8 @@ public class FirebaseHandler {
         }
         return firebaseHandler;
     }
+
+
 
     private String currentUser(){
         return FirebaseAuth.getInstance().getUid();
@@ -48,23 +61,63 @@ public class FirebaseHandler {
         FirebaseDatabase.getInstance().getReference().child(Constants.DISLIKED_MOVIES).child(userId).child(String.valueOf(movie.id)).setValue(movie.title);
     }
 
-    public List<MovieModel> getAllLikedMovies(){
+    public void getAllLikedMovies(final OnGetDataListener listener) {
+        listener.onStart();
         String userId = currentUser();
-        final List<MovieModel> movies = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child(Constants.LIKED_MOVIES).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listener.onSuccess(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("TINDER", "The liked read failed: " + databaseError.getCode());
+                listener.onFailure();
+
+            }
+        });
+    }
+
+    public void getAllDisikedMovies(final OnGetDataListener listener) {
+        listener.onStart();
+        String userId = currentUser();
+        FirebaseDatabase.getInstance().getReference().child(Constants.DISLIKED_MOVIES).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listener.onSuccess(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("TINDER", "The disliked read failed: " + databaseError.getCode());
+                listener.onFailure();
+
+            }
+        });
+    }
+
+
+    public List<MovieModel> OLDgetAllLikedMovies(){
+        String userId = currentUser();
 
         FirebaseDatabase.getInstance().getReference().child(Constants.LIKED_MOVIES).child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.getChildren()){
 
+                    Log.d("TINDER", data.getKey());
+
                     MovieModel m = data.getValue(MovieModel.class);
                     movies.add(m);
+                    //assert m != null;
+                    Log.d("TINDER", m.title);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d("TINDER", "The read failed: " + databaseError.getCode());
             }
         });
 
