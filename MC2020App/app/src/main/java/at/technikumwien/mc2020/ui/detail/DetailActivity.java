@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,5 +28,17 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        Intent intent = getIntent();
+
+        // check for extra data
+        if (intent.hasExtra(Intent.EXTRA_TEXT) ) {
+            String data = intent.getStringExtra(Intent.EXTRA_TEXT);
+
+            // TODO Hier die Daten setzen in der View
+            Log.d("TINDER", data);
+
+        }
+
     }
 }

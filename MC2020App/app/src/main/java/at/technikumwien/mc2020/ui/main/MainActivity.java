@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.listeners.ItemRemovedListener;
@@ -150,6 +151,15 @@ public class MainActivity extends AppCompatActivity implements
 
     private void openDetailActivity(){
         startDetailActivity = new Intent(this, DetailActivity.class);
+        List<Object> views = mSwipeView.getAllResolvers();
+
+        if (views.size() == 0)
+            return;
+
+        MovieCard mc = (MovieCard) views.get(0);
+        Gson gson = new Gson();
+        String movieData = gson.toJson(mc.getMovieData());
+        startDetailActivity.putExtra(Intent.EXTRA_TEXT, movieData );
         startActivity(startDetailActivity);
     }
 
