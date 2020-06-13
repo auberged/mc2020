@@ -37,6 +37,8 @@
     <string name="pref_tv_genre_label_reality">Reality</string>
     <!-- Label for the genre sports western preference  -->
     <string name="pref_tv_genre_label_western">Western</string>
+    <!-- Value in SharedPreferences for the genre default preference  -->
+    <string name="pref_tv_genre_default_value" translatable="false">35</string>
     <!-- Value in SharedPreferences for the genre sitcom preference  -->
     <string name="pref_tv_genre_comedy_value" translatable="false">35</string>
     <!-- Value in SharedPreferences for the genre horror preference  -->
@@ -74,6 +76,8 @@
     <string name="pref_movie_genre_label_drama">Drama</string>
     <!-- Label for the genre western preference  -->
     <string name="pref_movie_genre_label_western">Western</string>
+    <!-- Value in SharedPreferences for the genre default (comedy) preference  -->
+    <string name="pref_movie_genre_default_value" translatable="false">35</string>
     <!-- Value in SharedPreferences for the genre sitcom preference  -->
     <string name="pref_movie_genre_comedy_value" translatable="false">35</string>
     <!-- Value in SharedPreferences for the genre horror preference  -->
@@ -93,7 +97,7 @@
     <!--endregion-->
 
     <!-- Value in SharedPreferences for the dialog in genre preference  -->
-    <string name="selectPreferredGenre">Gewünschte Genre auswählen</string>
+    <string name="selectPreferredGenre">Gewünschtes Genre auswählen</string>
     <string name="genreCountSelectedMessage">Genre ausgewählt</string>
     <string name="explore">Entdecken</string>
 

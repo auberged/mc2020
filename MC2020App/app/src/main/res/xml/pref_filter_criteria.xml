@@ -8,10 +8,10 @@
         android:title="@string/pref_type_label"
         />
 
-    <MultiSelectListPreference
-        android:defaultValue="@array/pref_movie_genre_option_values"
+    <ListPreference
+        android:defaultValue="@string/pref_movie_genre_default_value"
         android:dialogTitle="@string/selectPreferredGenre"
-        android:key="@string/pref_tv_genre_key"
+        android:key="@string/pref_movie_genre_key"
         android:title="@string/pref_genre_label"
         />
 
