@@ -7,7 +7,6 @@
     android:screenOrientation="portrait"
     tools:context=".ui.main.MainActivity">
 
-
     <ImageView
         android:id="@+id/iv_background"
         android:layout_width="0dp"
@@ -57,8 +56,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_popcorn" />
 
+    <com.mindorks.placeholderview.SwipePlaceHolderView
+        android:id="@+id/swipe_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+    </com.mindorks.placeholderview.SwipePlaceHolderView>
+
     <ImageButton
-        android:id="@+id/ib_more"
+        android:id="@+id/ib_movie_detail"
         android:layout_width="59dp"
         android:layout_height="59dp"
         android:layout_marginBottom="28dp"
@@ -80,7 +87,7 @@
         android:contentDescription="like button"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ib_more"
+        app:layout_constraintStart_toEndOf="@+id/ib_movie_detail"
         app:srcCompat="@drawable/iv_like" />
 
     <ImageButton
@@ -94,15 +101,7 @@
         android:contentDescription="dislike button"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ib_more"
+        app:layout_constraintEnd_toStartOf="@+id/ib_movie_detail"
         app:srcCompat="@drawable/iv_dislike" />
-
-    <com.mindorks.placeholderview.SwipePlaceHolderView
-        android:id="@+id/swipe_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="parent">
-
-    </com.mindorks.placeholderview.SwipePlaceHolderView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

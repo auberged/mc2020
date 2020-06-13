@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ import java.util.Map;
 import at.technikumwien.mc2020.MovieCard;
 import at.technikumwien.mc2020.R;
 import at.technikumwien.mc2020.data.database.FirebaseHandler;
+import at.technikumwien.mc2020.ui.detail.DetailActivity;
 import at.technikumwien.mc2020.ui.launcher.LauncherActivity;
 import at.technikumwien.mc2020.ui.settings.SettingsActivity;
 import at.technikumwien.mc2020.utilities.FilterCriteria;
@@ -106,6 +108,15 @@ public class MainActivity extends AppCompatActivity implements
         loadData();
 
         //mSwipeView.addView(new MovieCard("https://i.pinimg.com/originals/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02.jpg", mContext, mSwipeView));
+
+        // Onclicklistener for movie detail view
+        ImageButton ib_movie_detail_btn = findViewById(R.id.ib_movie_detail);
+        ib_movie_detail_btn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("click", "movie detail button was clicked.");
+            }
+        });
 
         View settingsButton = findViewById(R.id.iv_icon_settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
