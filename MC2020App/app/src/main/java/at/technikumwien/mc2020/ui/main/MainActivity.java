@@ -109,7 +109,10 @@ public class MainActivity extends AppCompatActivity implements
 
         //mSwipeView.addView(new MovieCard("https://i.pinimg.com/originals/fd/5e/66/fd5e662dce1a3a8cd192a5952fa64f02.jpg", mContext, mSwipeView));
 
-        // Onclicklistener for movie detail view
+        /**
+         * Set onClickListeners for buttons
+         */
+
         ImageButton ib_movie_detail_btn = findViewById(R.id.ib_movie_detail);
         ib_movie_detail_btn.setOnClickListener( new View.OnClickListener() {
             @Override
