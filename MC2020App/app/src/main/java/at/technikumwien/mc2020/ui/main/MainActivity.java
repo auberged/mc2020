@@ -13,6 +13,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         FirebaseHandler.getInstance();
@@ -131,6 +134,18 @@ public class MainActivity extends AppCompatActivity implements
         });
 
 
+
+        /**
+         * Set onClickListeners for buttons
+         */
+
+        ImageButton ib_movie_detail_btn = findViewById(R.id.ib_movie_detail);
+        ib_movie_detail_btn.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("click", "movie detail button was clicked.");
+            }
+        });
 
         View settingsButton = findViewById(R.id.iv_icon_settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
