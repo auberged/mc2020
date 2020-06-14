@@ -83,7 +83,7 @@ public class MovieItem {
         movieCategories.setText(TextUtils.join(", ",tempGenres));
 
         // String shortening
-        String shortendDescription = movieModel.description.substring(0, Math.min(movieModel.description.length(), 100));
+        String shortendDescription = movieModel.description.substring(0, Math.min(movieModel.description.length(), 60));
         shortendDescription += "...";
         movieDescription.setText(shortendDescription);
 
