@@ -20,6 +20,7 @@ import com.mindorks.placeholderview.annotations.Position;
 import com.mindorks.placeholderview.annotations.Recycle;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -70,7 +71,8 @@ public class MovieItem {
     public void onResolved() {
         // do something here
         // example: load imageView with url image
-        Glide.with(context).load(movieModel.poster_url).into(imageView);
+        Picasso.get().load(movieModel.poster_url).into(imageView);
+
         movieTitle.setText(movieModel.title);
         movieRating.setText(String.format("%s/10 Sterne", movieModel.vote_average));
 
