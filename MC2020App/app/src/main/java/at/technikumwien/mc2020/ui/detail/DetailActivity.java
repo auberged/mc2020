@@ -61,8 +61,6 @@ public class DetailActivity extends AppCompatActivity {
         if (intent.hasExtra(Intent.EXTRA_TEXT) ) {
             String data = intent.getStringExtra(Intent.EXTRA_TEXT);
 
-            // TODO Hier die Daten setzen in der View
-            Log.d("TINDER", data);
             Gson gson = new Gson();
             movie = gson.fromJson(data, MovieModel.class);
 
@@ -70,13 +68,11 @@ public class DetailActivity extends AppCompatActivity {
             rating.setText(String.format(getString(R.string.rating_text), movie.vote_average));
             year.setText(movie.releaseDate);
 
-            // TODO max ersten 2 genre nehmen
-            int k = movie.genres.size();
-            if ( k > 2 )
-                movie.genres.subList(2, k).clear();
+            List<String> tempGenres = movie.genres;
+            if ( tempGenres.size() > 2 )
+                tempGenres = movie.genres.subList(0, 2);
 
-
-            genres.setText(TextUtils.join(", ",movie.genres));
+            genres.setText(TextUtils.join(", ",tempGenres));
             title.setText(movie.title);
             description.setText(movie.description);
 
@@ -89,17 +85,10 @@ public class DetailActivity extends AppCompatActivity {
                     shareMovie();
                 }
             });
-
-
         }
-
-
     }
 
     private void shareMovie() {
-        Log.d("TINDER", "share");
-        //showErrorToast();
-
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("text/plain");
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
