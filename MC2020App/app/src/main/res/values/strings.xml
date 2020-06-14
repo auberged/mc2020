@@ -143,5 +143,6 @@
     <string name="error_msg_parsing_error">Error: Fehlerhafte Daten</string>
     <string name="error_msg_api_error">Error: Keine Daten erhalten</string>
     <string name="rating_text">%s/10 Sterne</string>
+    <string name="liked_movies">Liked Filme</string>
 
 </resources>

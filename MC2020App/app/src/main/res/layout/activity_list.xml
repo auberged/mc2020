@@ -3,12 +3,26 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:background="#ffffff">
+<!--    android:gravity="center"-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/liked_movies"
+        android:textColor="#363537"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="8dp"
+        android:gravity="start"/>
 
     <com.mindorks.placeholderview.InfinitePlaceHolderView
         android:id="@+id/Liked_movies_placeholder_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         />
 </LinearLayout>
