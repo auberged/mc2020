@@ -67,7 +67,7 @@ public class MovieCard {
 
     @SwipeCancelState
     public void onSwipeCancelState() {
-        Log.d("TINDER", "onSwipeCancelState");
+        //Log.d("TINDER", "onSwipeCancelState");
     }
 
     @SwipeIn

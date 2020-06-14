@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-        View moreButton = findViewById(R.id.ib_more);
+        View moreButton = findViewById(R.id.ib_movie_detail);
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,19 +133,6 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-
-
-        /**
-         * Set onClickListeners for buttons
-         */
-
-        ImageButton ib_movie_detail_btn = findViewById(R.id.ib_movie_detail);
-        ib_movie_detail_btn.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("click", "movie detail button was clicked.");
-            }
-        });
 
         View settingsButton = findViewById(R.id.iv_icon_settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -192,20 +179,6 @@ public class MainActivity extends AppCompatActivity implements
         startActivity(startListActivity);
 
 
-        /*
-
-        Log.d("TINDER", "share");
-        //showErrorToast();
-
-        Intent share = new Intent(android.content.Intent.ACTION_SEND);
-        share.setType("text/plain");
-        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-
-        share.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareMovieSubject));
-        share.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareMovieDescription));
-
-        startActivity(Intent.createChooser(share, getString(R.string.shareMovieTitle)));
-        */
 
     }
 

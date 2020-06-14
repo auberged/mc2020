@@ -75,6 +75,7 @@ dependencies {
     implementation 'com.mindorks.android:placeholderview:1.0.3' // replaced dependecy 'com.mindorks:placeholderview:0.7.1'
     annotationProcessor 'com.mindorks.android:placeholderview-compiler:1.0.3'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     testImplementation 'org.json:json:20200518'
 

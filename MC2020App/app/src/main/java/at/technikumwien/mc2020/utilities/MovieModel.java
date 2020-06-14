@@ -28,6 +28,8 @@ public class MovieModel {
         this.description = description;
         this.vote_average = vote_average;
         this.poster_url = "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + poster_url;
+        if (releaseDate.contains("-"))
+            releaseDate = releaseDate.split("-")[0];
         this.releaseDate = releaseDate;
         this.genres = new ArrayList<String>();
     }
