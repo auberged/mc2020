@@ -1,12 +1,15 @@
 package at.technikumwien.mc2020.ui.list;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.mindorks.placeholderview.annotations.Animate;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -18,6 +21,7 @@ import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 
 import at.technikumwien.mc2020.R;
+import at.technikumwien.mc2020.ui.detail.DetailActivity;
 import at.technikumwien.mc2020.utilities.MovieModel;
 
 @NonReusable
@@ -38,6 +42,8 @@ public class MovieItem {
 
     private MovieModel movieModel;
     private Context context;
+    private Intent startDetailActivity;
+
 
     public MovieItem(Context context, MovieModel movieModel) {
         this.context = context;
@@ -72,7 +78,14 @@ public class MovieItem {
      */
     @Click(R.id.image_movie_view)
     public void onImageViewClick() {
-        // do something
+        Log.d("TINDER", "Clicked!");
+        startDetailActivity = new Intent(context, DetailActivity.class);
+        startDetailActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Gson gson = new Gson();
+        String movieData = gson.toJson(movieModel);
+        startDetailActivity.putExtra(Intent.EXTRA_TEXT, movieData );
+        context.startActivity(startDetailActivity);
+
 
     }
 
