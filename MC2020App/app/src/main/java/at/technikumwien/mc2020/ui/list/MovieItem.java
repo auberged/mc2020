@@ -2,12 +2,14 @@ package at.technikumwien.mc2020.ui.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -32,6 +34,7 @@ import at.technikumwien.mc2020.utilities.MovieModel;
 @Animate(Animate.CARD_BOTTOM_IN_ASC)
 @Layout(R.layout.load_movie_item_view)
 public class MovieItem {
+
     @View(R.id.card_view)
     CardView cardView;
 
@@ -99,21 +102,21 @@ public class MovieItem {
         // Example: clear some references used by earlier rendering
     }
 
+
     /*
      * This method is called when the view with id image_view is clicked.
      * onImageViewClick method could be named anything.
      */
-    @Click(R.id.image_movie_view)
+    @Click(R.id.cl_single_liked_movie)
     public void onImageViewClick() {
         Log.d("TINDER", "Clicked!");
+
         startDetailActivity = new Intent(context, DetailActivity.class);
         startDetailActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Gson gson = new Gson();
         String movieData = gson.toJson(movieModel);
         startDetailActivity.putExtra(Intent.EXTRA_TEXT, movieData );
         context.startActivity(startDetailActivity);
-
-
     }
 
     @LongClick(R.id.image_movie_view)

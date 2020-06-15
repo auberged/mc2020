@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/cl_single_liked_movie"
     android:layout_height="150dp"
     android:background="#ffffff"
     android:screenOrientation="portrait">
