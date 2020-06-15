@@ -2,6 +2,7 @@ package at.technikumwien.mc2020.ui.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,9 @@ import com.mindorks.placeholderview.annotations.Position;
 import com.mindorks.placeholderview.annotations.Recycle;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import at.technikumwien.mc2020.R;
 import at.technikumwien.mc2020.ui.detail.DetailActivity;
@@ -36,6 +40,15 @@ public class MovieItem {
 
     @View(R.id.movie_title)
     TextView movieTitle;
+
+    @View(R.id.movie_rating)
+    TextView movieRating;
+
+    @View(R.id.movie_categories)
+    TextView movieCategories;
+
+    @View(R.id.movie_description)
+    TextView movieDescription;
 
     @Position
     int position;
@@ -58,8 +71,22 @@ public class MovieItem {
     public void onResolved() {
         // do something here
         // example: load imageView with url image
-        Glide.with(context).load(movieModel.poster_url).into(imageView);
+        Picasso.get().load(movieModel.poster_url).into(imageView);
+
         movieTitle.setText(movieModel.title);
+        movieRating.setText(String.format("%s/10 Sterne", movieModel.vote_average));
+
+        List<String> tempGenres = movieModel.genres;
+        if ( tempGenres.size() > 2 )
+            tempGenres = movieModel.genres.subList(0, 2);
+
+        movieCategories.setText(TextUtils.join(", ",tempGenres));
+
+        // String shortening
+        String shortendDescription = movieModel.description.substring(0, Math.min(movieModel.description.length(), 60));
+        shortendDescription += "...";
+        movieDescription.setText(shortendDescription);
+
     }
 
     /*
