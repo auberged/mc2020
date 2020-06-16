@@ -1,5 +1,8 @@
 package at.technikumwien.mc2020.utilities;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import java.io.IOException;
@@ -29,19 +32,6 @@ public class NetworkUtils {
 
         return urlString;
 
-        /*
-        Uri tempUri = Uri.parse(urlString).buildUpon().appendQueryParameter("page", Integer.toString(pageNr)).build();
-        URL url = null;
-
-        try {
-            url = new URL(tempUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        return url;
-
-        */
     }
 
     public static String getResponseFromHttpUrl(URL url) throws IOException {

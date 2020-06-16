@@ -109,6 +109,14 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
         imdbMaxRating = Integer.valueOf(values[1]);
     }
 
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
     private void setChangedState(boolean state){
         changedState = state;
     }

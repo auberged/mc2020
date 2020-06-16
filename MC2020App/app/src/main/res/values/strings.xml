@@ -141,8 +141,10 @@
     <string name="reached_end_of_favourite_movie_list">Keine weiteren Filme verfügbar</string>
     <string name="error_loading_favourite_movies">Fehler beim Laden der Filme aufgetreten</string>
     <string name="error_msg_parsing_error">Error: Fehlerhafte Daten</string>
-    <string name="error_msg_api_error">Error: Keine Daten erhalten</string>
+    <string name="error_msg_api_error">Error: Konnte keine Filme finden</string>
+    <string name="error_no_db_connection">Keine Verbindung. Bitte prüfe deine Netzwerk Verbindung.</string>
     <string name="rating_text">%s/10 Sterne</string>
     <string name="liked_movies">Liked Filme</string>
+    <string name="movie_genre_label_unknown">Unbekannt</string>
 
 </resources>

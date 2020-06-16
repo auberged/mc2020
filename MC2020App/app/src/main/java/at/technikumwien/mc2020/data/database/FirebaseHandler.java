@@ -79,6 +79,7 @@ public class FirebaseHandler {
         });
     }
 
+
     public void getAllDisikedMovies(final OnGetDataListener listener) {
         listener.onStart();
         String userId = currentUser();
