@@ -1,5 +1,9 @@
 package at.technikumwien.mc2020.utilities;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -9,8 +13,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import at.technikumwien.mc2020.R;
+import at.technikumwien.mc2020.ui.main.MainActivity;
+
 public class MovieModel {
     public int id;
+    public String type;
     public String title;
     public String description;
     public double vote_average;
@@ -22,8 +30,9 @@ public class MovieModel {
 
     }
 
-    public MovieModel(int id, String title, String description, double vote_average, String poster_url, String releaseDate) {
+    public MovieModel(int id, String type, String title, String description, double vote_average, String poster_url, String releaseDate) {
         this.id = id;
+        this.type = type;
         this.title = title;
         this.description = description;
         this.vote_average = vote_average;
@@ -36,49 +45,52 @@ public class MovieModel {
 
     public void addGenre(int genreId) {
         String genre = GetGenreStringFromId(genreId);
-        this.genres.add(genre);
+        if (genre != null)
+            this.genres.add(genre);
     }
 
     private String GetGenreStringFromId(int genreId) {
-        if (genreId == 28)
-            return "Action";
-        if (genreId == 12)
-            return "Abenteuer";
-        if (genreId == 16)
-            return "Animation";
-        if (genreId == 35)
-            return "Komödie";
-        if (genreId == 80)
-            return "Krimi";
-        if (genreId == 99)
-            return "Dokumentarfilm";
-        if (genreId == 18)
-            return "Drama";
-        if (genreId == 10751)
-            return "Familie";
-        if (genreId == 14)
-            return "Fantasy";
-        if (genreId == 36)
-            return "Historie";
-        if (genreId == 27)
-            return "Horror";
-        if (genreId == 10402)
-            return "Musik";
-        if (genreId == 9648)
-            return "Mystery";
-        if (genreId == 10749)
-            return "Liebesfilm";
-        if (genreId == 878)
-            return "Science Fiction";
-        if (genreId == 10770)
-            return "TV-Film";
-        if (genreId == 53)
-            return "Thriller";
-        if (genreId == 10752)
-            return "Kriegsfilm";
-        if (genreId == 37)
-            return "Western";
-        else
-            return "Unbekannt";
+        Context context = MainActivity.mContext;
+        if (this.type.equals("series")) {
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_tv_genre_comedy_value)))
+                return context.getResources().getString(R.string.pref_tv_genre_label_comedy);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_tv_genre_mystery_value)))
+                return context.getResources().getString(R.string.pref_tv_genre_label_mystery);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_tv_genre_documentary_value)))
+                return context.getResources().getString(R.string.pref_tv_genre_label_documentary);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_tv_genre_action_adventure_value)))
+                return context.getResources().getString(R.string.pref_tv_genre_label_action_adventure);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_tv_genre_animation_value)))
+                return context.getResources().getString(R.string.pref_tv_genre_label_animation);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_tv_genre_drama_value)))
+                return context.getResources().getString(R.string.pref_tv_genre_label_drama);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_tv_genre_reality_value)))
+                return context.getResources().getString(R.string.pref_tv_genre_label_reality);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_tv_genre_western_value)))
+                return context.getResources().getString(R.string.pref_tv_genre_label_western);
+            else
+                return null;
+
+        } else {
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_movie_genre_comedy_value)))
+                return context.getResources().getString(R.string.pref_movie_genre_label_comedy);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_movie_genre_horror_value)))
+                return context.getResources().getString(R.string.pref_movie_genre_label_horror);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_movie_genre_documentary_value)))
+                return context.getResources().getString(R.string.pref_movie_genre_label_documentary);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_movie_genre_action_value)))
+                return context.getResources().getString(R.string.pref_movie_genre_label_action);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_movie_genre_adventure_value)))
+                return context.getResources().getString(R.string.pref_movie_genre_label_adventure);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_movie_genre_animation_value)))
+                return context.getResources().getString(R.string.pref_movie_genre_label_animation);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_movie_genre_drama_value)))
+                return context.getResources().getString(R.string.pref_movie_genre_label_drama);
+            if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_movie_genre_western_value)))
+                return context.getResources().getString(R.string.pref_movie_genre_label_western);
+            else
+                return null;
+        }
+
     }
 }

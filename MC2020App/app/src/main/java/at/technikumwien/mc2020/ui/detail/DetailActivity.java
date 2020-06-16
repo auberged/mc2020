@@ -69,10 +69,15 @@ public class DetailActivity extends AppCompatActivity {
             year.setText(movie.releaseDate);
 
             List<String> tempGenres = movie.genres;
-            if ( tempGenres.size() > 2 )
-                tempGenres = movie.genres.subList(0, 2);
+            String genreText = "";
+            for (String genre : tempGenres) {
+                if (genreText.length() + genre.length() <= 16)
+                    genreText += genre + ", ";
+            }
+            genreText = genreText.substring(0, genreText.length() -2);
 
-            genres.setText(TextUtils.join(", ",tempGenres));
+
+            genres.setText(genreText);
             title.setText(movie.title);
             description.setText(movie.description);
 
