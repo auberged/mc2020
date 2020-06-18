@@ -125,7 +125,7 @@ public class FilterCriteria implements  SharedPreferences.OnSharedPreferenceChan
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if(key.equals(context.getResources().getString(R.string.pref_type_key))){
             setType(sharedPreferences);
-        } else if(key.equals(context.getResources().getString(R.string.pref_tv_genre_key))){
+        } else if(key.equals(context.getResources().getString(R.string.pref_tv_genre_key)) || key.equals(context.getResources().getString(R.string.pref_movie_genre_key))){
             setGenre(sharedPreferences);
         } else if(key.equals(context.getResources().getString(R.string.pref_release_year_key))){
             setReleaseYear(sharedPreferences);
