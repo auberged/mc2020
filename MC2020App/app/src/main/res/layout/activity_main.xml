@@ -36,9 +36,7 @@
         android:id="@+id/swipe_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="parent">
-
-    </com.mindorks.placeholderview.SwipePlaceHolderView>
+        app:layout_constraintTop_toBottomOf="parent"/>
 
     <ImageButton
         android:id="@+id/ib_movie_detail"
@@ -97,7 +95,7 @@
 
     <ImageView
         android:id="@+id/iv_icon_user"
-        android:layout_width="25dp"
+        android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginTop="34dp"
         android:layout_marginEnd="20dp"
@@ -105,6 +103,6 @@
         android:contentDescription="@null"
         app:layout_constraintEnd_toStartOf="@+id/iv_icon_settings"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_popcorn" />
+        app:srcCompat="@drawable/icon_camera_movie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
