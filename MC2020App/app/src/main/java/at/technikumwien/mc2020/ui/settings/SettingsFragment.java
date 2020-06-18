@@ -53,6 +53,20 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 String countSelectedValues = selectedValues != null ? String.valueOf(selectedValues.size()) : "0";
                 setPreferenceSummary(p, countSelectedValues);
             }
+            if(p instanceof  NumberPickerPreference){
+                String selectedYear = sharedPreferences.getString(p.getKey(), getContext().getString(R.string.pref_release_year_default));
+
+                // Because it is a custom preference it is not possible to use the setPreferenceSummary from above. Therefor findPreference is needed to get the correct custom preference and to set the summary accordingly.
+                Preference preference = findPreference(p.getKey());
+                preference.setSummary(selectedYear);
+            }
+            if(p instanceof RangeSeekBarPreference){
+                String imdbRating = sharedPreferences.getString(p.getKey(), getContext().getString(R.string.pref_imdb_rating_default));
+
+                // Because it is a custom preference it is not possible to use the setPreferenceSummary from above. Therefor findPreference is needed to get the correct custom preference and to set the summary accordingly.
+                Preference preference = findPreference(p.getKey());
+                preference.setSummary(imdbRating);
+            }
         }
 
         final Preference logoutPreference = findPreference(getString(R.string.pref_logout_key));
