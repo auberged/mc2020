@@ -83,7 +83,7 @@
 
     <ImageView
         android:id="@+id/iv_icon_settings"
-        android:layout_width="39dp"
+        android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginTop="34dp"
         android:layout_marginEnd="18dp"
