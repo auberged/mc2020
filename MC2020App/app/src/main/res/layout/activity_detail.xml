@@ -49,13 +49,18 @@
         android:id="@+id/tv_movie_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="30dp"
-        android:text="Fight Club"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="Crimnal Intent - Verbrechen im dunklen Visier"
         android:textColor="#363537"
         android:textSize="27sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <TextView
