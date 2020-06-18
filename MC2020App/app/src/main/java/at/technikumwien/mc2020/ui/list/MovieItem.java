@@ -9,15 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.mindorks.placeholderview.annotations.Animate;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.LongClick;
-import com.mindorks.placeholderview.annotations.NonReusable;
 import com.mindorks.placeholderview.annotations.Position;
 import com.mindorks.placeholderview.annotations.Recycle;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -30,8 +25,6 @@ import at.technikumwien.mc2020.R;
 import at.technikumwien.mc2020.ui.detail.DetailActivity;
 import at.technikumwien.mc2020.utilities.MovieModel;
 
-@NonReusable
-@Animate(Animate.CARD_BOTTOM_IN_ASC)
 @Layout(R.layout.load_movie_item_view)
 public class MovieItem {
 
@@ -80,10 +73,10 @@ public class MovieItem {
         movieRating.setText(String.format("%s/10 Sterne", movieModel.vote_average));
 
         List<String> tempGenres = movieModel.genres;
-        if ( tempGenres.size() > 2 )
+        if ( tempGenres != null && tempGenres.size() > 2 ) {
             tempGenres = movieModel.genres.subList(0, 2);
-
-        movieCategories.setText(TextUtils.join(", ",tempGenres));
+            movieCategories.setText(TextUtils.join(", ",tempGenres));
+        }
 
         // String shortening
         String shortendDescription = movieModel.description.substring(0, Math.min(movieModel.description.length(), 60));
@@ -98,8 +91,6 @@ public class MovieItem {
      */
     @Recycle
     public void onRecycled() {
-        // do something here
-        // Example: clear some references used by earlier rendering
     }
 
 

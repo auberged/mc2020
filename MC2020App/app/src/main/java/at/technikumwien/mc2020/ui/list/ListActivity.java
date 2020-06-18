@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +43,6 @@ public class ListActivity extends AppCompatActivity {
 
         likedMoviesView = findViewById(R.id.Liked_movies_placeholder_view);
 
-
         likedMoviesView.getBuilder()
                 .setHasFixedSize(false)
                 .setItemViewCacheSize(LOAD_MOVIE_COUNT)
@@ -61,7 +62,6 @@ public class ListActivity extends AppCompatActivity {
                 FirebaseDatabase.getInstance().getReference().child(Constants.LIKED_MOVIES).child(FirebaseAuth.getInstance().getUid()).orderByKey().startAt(startNode).limitToFirst(LOAD_MOVIE_COUNT).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        List<MovieModel> movies = new ArrayList<>();
                         for(DataSnapshot data: dataSnapshot.getChildren()){
                             MovieModel m = data.getValue(MovieModel.class);
                             if(!String.valueOf(m.id).equals(startNode)) {
@@ -134,19 +134,36 @@ public class ListActivity extends AppCompatActivity {
             // Called when a user swipes left or right on a ViewHolder
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Gelöscht", Toast.LENGTH_LONG);
-                toast.show();
-                likedMoviesView.removeViewAt(viewHolder.getAdapterPosition());
-                likedMoviesView.refresh();
+                final int position = viewHolder.getAdapterPosition();
+                final MovieItem m = (MovieItem) likedMoviesView.getViewResolverAtPosition(position);
 
-                // TODO: Item aus Firebase löschen.
+                FirebaseDatabase.getInstance().getReference().child(Constants.LIKED_MOVIES).child(FirebaseAuth.getInstance().getUid()).child(String.valueOf(m.getMovieModel().id)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.deleteLikedMovieSuccess, Toast.LENGTH_LONG);
+                        toast.show();
+
+                        List<Object> test = likedMoviesView.getAllViewResolvers();
+                        //likedMoviesView.removeViewAt(position);
+                        likedMoviesView.removeView(m);
+                        likedMoviesView.refreshView(m);
+                        //likedMoviesView.removeView(position);
+                        //likedMoviesView.refreshView(position);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.deleteLikedMovieFailure, Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                });
             }
         }).attachToRecyclerView(likedMoviesView);
 
         FirebaseDatabase.getInstance().getReference().child(Constants.LIKED_MOVIES).child(FirebaseAuth.getInstance().getUid()).orderByKey().limitToFirst(LOAD_MOVIE_COUNT).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<MovieModel> movies = new ArrayList<>();
                 for(DataSnapshot data: dataSnapshot.getChildren()){
                     MovieModel m = data.getValue(MovieModel.class);
                     likedMoviesView

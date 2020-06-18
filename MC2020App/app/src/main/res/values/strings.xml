@@ -146,5 +146,7 @@
     <string name="rating_text">%s/10 Sterne</string>
     <string name="liked_movies">Liked Filme</string>
     <string name="movie_genre_label_unknown">Unbekannt</string>
+    <string name="deleteLikedMovieSuccess">Erfolgreich gelöscht</string>
+    <string name="deleteLikedMovieFailure">Fehler beim Löschen aufgetreten! Bitte versuchen Sie es später erneut.</string>
 
 </resources>
