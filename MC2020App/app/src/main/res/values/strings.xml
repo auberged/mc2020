@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MC2020-App</string>
+    <string name="app_name">Molike</string>
     <string name="filterCriteriaSettings">Filterkriterien</string>
 
     <!-- Label for the type (tv/series) preference  -->
