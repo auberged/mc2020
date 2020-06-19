@@ -50,7 +50,10 @@ public class MovieModel {
     }
 
     private String GetGenreStringFromId(int genreId) {
+        // get the main context
         Context context = MainActivity.mContext;
+
+        // get the genre name from the genre id
         if (this.type.equals("series")) {
             if (genreId == Integer.parseInt(context.getResources().getString(R.string.pref_tv_genre_comedy_value)))
                 return context.getResources().getString(R.string.pref_tv_genre_label_comedy);

@@ -78,34 +78,33 @@ public class MainActivity extends AppCompatActivity implements
 
         setContentView(R.layout.activity_main);
 
+        // simple connectivity check
         if (!isNetworkAvailable()) {
             Log.d("TINDER", "not connected");
             showErrorToast(getString(R.string.error_no_db_connection));
         }
 
-
+        // if user isn't logged in, log in
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent intent = new Intent(this, LauncherActivity.class);
             startActivity(intent);
         }
 
+        // set swiping Cards
         mSwipeView = (SwipePlaceHolderView)findViewById(R.id.swipe_view);
         mSwipeView.addItemRemoveListener(new ItemRemovedListener() {
 
+            // if a card is removed, trigger
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onItemRemoved(int count) {
-                Log.d("TINDER", String.valueOf(count));
+                // load new data if to less cards
                 if ( (count <= 30) && (count % 5 == 0) || (count <= 50) && (count % 10 == 0)) {
                     Log.d("TINDER", "load more .....");
                     loadData();
                 }
             }
         });
-
-        mContext = getApplicationContext();
-        movies = new LinkedList<>();
-
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
                 .setSwipeDecor(new SwipeDecor()
@@ -115,9 +114,7 @@ public class MainActivity extends AppCompatActivity implements
                         .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
 
 
-        loadData();
-
-
+        // init the three button (dislike, more info and like)
         View dislikeButton = findViewById(R.id.ib_dislike);
         dislikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
-
+        // init favourite movies and settings buttons
         View settingsButton = findViewById(R.id.iv_icon_settings);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,19 +155,35 @@ public class MainActivity extends AppCompatActivity implements
                 openProfileActivity();
             }
         });
+
+        // init context and movies
+        mContext = getApplicationContext();
+        movies = new LinkedList<>();
+
+        // load data into the cards from api
+        loadData();
+
+
     }
 
+    // shows more infomration about the movie
     private void openDetailActivity(){
         startDetailActivity = new Intent(this, DetailActivity.class);
+
+        // get all cards
         List<Object> views = mSwipeView.getAllResolvers();
 
+        // abort if there are no cards
         if (views.size() == 0)
             return;
 
+        // get the first card, get movie date, parse to json and transfer it to new activity
         MovieCard mc = (MovieCard) views.get(0);
         Gson gson = new Gson();
         String movieData = gson.toJson(mc.getMovieData());
         startDetailActivity.putExtra(Intent.EXTRA_TEXT, movieData );
+
+        // start the new activity
         startActivity(startDetailActivity);
     }
 
@@ -179,16 +192,12 @@ public class MainActivity extends AppCompatActivity implements
         startActivity(startSettingsActivity);
     }
 
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void openProfileActivity(){
         Log.d("TINDER", String.join(",", FilterCriteria.getInstance(mContext).getGenre()));
 
         startListActivity = new Intent(this, ListActivity.class);
         startActivity(startListActivity);
-
-
-
     }
 
     private List<Integer> getCurrentCardIds(){
@@ -202,15 +211,7 @@ public class MainActivity extends AppCompatActivity implements
         return card_ids;
     }
 
-
-
-
-    //    @Override
-    //    protected void onSaveInstanceState(@NonNull Bundle outState) {
-    //        super.onSaveInstanceState(outState);
-    //        outState.putInt(PAGE_NR_EXTRA, PAGE_NUMBER);
-    //    }
-
+    // check if internet available
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -218,9 +219,11 @@ public class MainActivity extends AppCompatActivity implements
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-
+    // load new data fom the API
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void loadData() {
+
+        // get parameters
         Map<String, String> parameter = new HashMap<>();
         parameter.put("language", "de");
         parameter.put("sort_by", "popularity.desc");
@@ -232,17 +235,18 @@ public class MainActivity extends AppCompatActivity implements
         parameter.put("with_genres", String.join(",", FilterCriteria.getInstance(mContext).getGenre()) );
         parameter.put("page", String.valueOf(PAGE_NUMBER));
 
+        // get base URL depending on type (movie or series)
         String base_url = "https://api.themoviedb.org/3/discover/";
         if (FilterCriteria.getInstance(mContext).getType().equals("series"))
             base_url += "tv";
         else
             base_url += "movie";
 
-
+        // build the URL with parameters
         final String apiUrl = NetworkUtils.buildUrl(base_url, parameter);
         final MainActivity callbackActivity = this;
 
-
+        // get all liked movie ids from firebase database
         FirebaseHandler.getInstance().getAllLikedMovies(new FirebaseHandler.OnGetDataListener() {
         @Override
         public void onSuccess(DataSnapshot dataSnapshot) {
@@ -252,6 +256,7 @@ public class MainActivity extends AppCompatActivity implements
                 movies_ids.add(m.id);
             }
 
+            // get all disliked movie ids from firebase database
             FirebaseHandler.getInstance().getAllDisikedMovies(new FirebaseHandler.OnGetDataListener() {
                 @Override
                 public void onSuccess(DataSnapshot dataSnapshot) {
@@ -259,9 +264,9 @@ public class MainActivity extends AppCompatActivity implements
                         movies_ids.add(Integer.parseInt(data.getKey()));
                     }
 
+                    // asynchronous loader
                     Bundle queryBundle = new Bundle();
                     queryBundle.putString(API_URL_EXTRA, apiUrl);
-
                     LoaderManager loaderManager = getSupportLoaderManager();
                     Loader<String> apiLoader = loaderManager.getLoader(LOADER_ID);
                     if(apiLoader == null){
@@ -281,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         public void onStart() {
-            Log.d("TINDER", "Start liking search...");
+            Log.d("TINDER", "Start getting data from firebase...");
         }
 
         @Override
@@ -295,7 +300,6 @@ public class MainActivity extends AppCompatActivity implements
         return new AsyncTaskLoader<String>(this) {
 
             String data;
-
             @Override
             public void onStartLoading() {
 
@@ -312,13 +316,14 @@ public class MainActivity extends AppCompatActivity implements
 
             @Override
             public String loadInBackground() {
+                // get the url from extras
                 String apiUrlString = args.getString(API_URL_EXTRA);
 
                 // if url error
                 if (apiUrlString.isEmpty()) return null;
                 PAGE_NUMBER++;
 
-
+                // try to get data from the API
                 try {
                     URL apiUrl = new URL(apiUrlString);
                     String apiResult = NetworkUtils.getResponseFromHttpUrl(apiUrl);
@@ -340,10 +345,13 @@ public class MainActivity extends AppCompatActivity implements
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onLoadFinished(Loader<String> loader, final String responseData) {
+
+        // checks if the data is empty
         if(responseData == null){
             showErrorToast(getString(R.string.error_msg_api_error));
         } else{
             try {
+                // try to get movies from data
                 parseDataToMovies(responseData);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -402,14 +410,14 @@ public class MainActivity extends AppCompatActivity implements
                 releaseDate = jsonCard.getString("release_date");
             }
 
-
+            // get the remaining info for the movie
             int id = jsonCard.getInt("id");
             String description = jsonCard.getString("overview");
             double vote_average = jsonCard.getDouble("vote_average");
 
             // check if movie is unknown
             if (movies_ids.contains(id) || cardIds.contains(id)) {
-                //Log.d("TINDER", title + " already known");
+                // if so, don't add it to the list
                 continue;
             }
 
@@ -417,19 +425,23 @@ public class MainActivity extends AppCompatActivity implements
             if (jsonCard.isNull("poster_path")) {
                 // if not, don't add it to the list
                 continue;
-
             }
             String poster_url = jsonCard.getString("poster_path");
 
+            // create movie data model with the info
             MovieModel movie = new MovieModel(id, type, title, description, vote_average, poster_url, releaseDate);
 
+            // add string genres
             JSONArray genres = jsonCard.getJSONArray("genre_ids");
             for (int j = 0; j < genres.length(); j++) {
                 movie.addGenre(genres.getInt(j));
             }
+
+            // add a genre if no genre is provided
             if (movie.genres.size() == 0)
                 movie.genres.add(mContext.getString(R.string.movie_genre_label_unknown));
 
+            // add the movie to the Swipe Cards
             mSwipeView.addView(new MovieCard(movie, mContext, mSwipeView));
         }
 
@@ -449,7 +461,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void showErrorToast(String error_msg) {
-        //Context context = getApplicationContext();
+        // shows a error toast on the screen
         Context context = mContext;
         CharSequence text = error_msg;
         int duration = Toast.LENGTH_LONG;
@@ -463,11 +475,13 @@ public class MainActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
 
+        // check if user still logged in
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             Intent intent = new Intent(this, LauncherActivity.class);
             startActivity(intent);
         }
 
+        // check if settings have changed
         if (FilterCriteria.getInstance(mContext).getChangedState()) {
             mSwipeView.removeAllViews();
             loadData();

@@ -49,6 +49,7 @@ public class MovieCard {
         this.mSwipeView = mSwipeView;
     }
 
+    // returns the data of the movie
     public MovieModel getMovieData() {
         return movieData;
     }
@@ -61,19 +62,27 @@ public class MovieCard {
 
     @SwipeOut
     public void onSwipedOut(){
+        // user disliked the movie
         FirebaseHandler.getInstance().saveDislikedMovie(movieData);
         Log.d("TINDER", "Disliked movie: " + movieData.title +  " " + movieData.poster_url);
     }
 
+    @SwipeIn
+    public void onSwipeIn(){
+        // user liked the movie
+        FirebaseHandler.getInstance().saveLikedMovie(movieData);
+        Log.d("TINDER", "Liked movie: " + movieData.title +  " " + movieData.poster_url);
+    }
+
+
+
+
+
+    // Not used states
+
     @SwipeCancelState
     public void onSwipeCancelState() {
         //Log.d("TINDER", "onSwipeCancelState");
-    }
-
-    @SwipeIn
-    public void onSwipeIn(){
-        FirebaseHandler.getInstance().saveLikedMovie(movieData);
-        Log.d("TINDER", "Liked movie: " + movieData.title +  " " + movieData.poster_url);
     }
 
     @SwipeInState

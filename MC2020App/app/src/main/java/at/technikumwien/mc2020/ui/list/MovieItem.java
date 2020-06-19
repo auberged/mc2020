@@ -100,13 +100,16 @@ public class MovieItem {
      */
     @Click(R.id.cl_single_liked_movie)
     public void onImageViewClick() {
-        Log.d("TINDER", "Clicked!");
-
+        // create detail intent
         startDetailActivity = new Intent(context, DetailActivity.class);
         startDetailActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        // get movie data and dave it into extra
         Gson gson = new Gson();
         String movieData = gson.toJson(movieModel);
         startDetailActivity.putExtra(Intent.EXTRA_TEXT, movieData );
+
+        // start the detail activity
         context.startActivity(startDetailActivity);
     }
 
@@ -116,6 +119,7 @@ public class MovieItem {
     }
 
     public MovieModel getMovieModel(){
+        // get the movie data
         return this.movieModel;
     }
 }

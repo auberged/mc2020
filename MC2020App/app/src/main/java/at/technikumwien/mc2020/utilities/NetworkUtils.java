@@ -1,10 +1,5 @@
 package at.technikumwien.mc2020.utilities;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.util.Log;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -15,12 +10,14 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
-
+    // API key for http://themoviedb.org/
     private static final String API_KEY = "db94b1f559af23f5a8bd53a8dbec0c1e";
 
+    // builds a url incl. parameters
     public static String buildUrl(String urlString, Map<String, String> parameter) {
         parameter.put("api_key", API_KEY);
 
+        // add every parameter
         StringBuilder urlStringBuilder = new StringBuilder(urlString + "?");
         for (Iterator<Map.Entry<String, String>> it = parameter.entrySet().iterator();
              it.hasNext();) {
@@ -34,6 +31,7 @@ public class NetworkUtils {
 
     }
 
+    // reads the response from a http connection
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
